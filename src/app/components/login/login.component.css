@@ -1,0 +1,62 @@
+.login-container{
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 30%;
+    height: 70%;
+    display: table;
+    text-align: center;
+}
+
+.login-form{
+    border-radius: 1.5px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+label{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: larger;
+}
+
+.error{
+    margin-top: 5px;
+    color: var(--main-color);
+    font-size: small;
+}
+
+input, button{
+    margin-top: 40px;
+    text-align: center;   
+}
+
+input[type=text], input[type=password]{
+    height: 35px;
+    width: 220px;
+}
+
+button{
+    height: 30px;
+    width: 100px;
+    background-color: #c9bbbb;
+    color: #ce8775;
+    font-weight: 900;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button:hover{
+    background-color: var(--main-color);
+    color: #000000;
+    margin-top: 38px;
+    height: 32px;
+    width: 102px;
+}
+
+.ng-invalid:not(form)  {
+    outline: none;
+    border-color: var(--main-color);
+    box-shadow: 0 0 3px var(--main-color);
+}
