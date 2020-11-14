@@ -1,1 +1,23 @@
-<p>login works!</p>
+<div class="login-container">
+    <form class="login-form" (ngSubmit)="onLogin()">
+        <div class="label">
+            <label> Welcome </label>
+        </div>
+
+        <div>
+            <input name="username" #usernameId="ngModel" type="text" placeholder="Username"
+             [(ngModel)]="username" required ng-invalid/>
+        </div>
+
+        <div>
+            <input name="password" #passwordId="ngModel" type="password" placeholder="Password" 
+            [(ngModel)]="password" required/>
+        </div>
+
+        <button type="submit"> Login </button>
+
+        <div class="label error" *ngIf="showError">
+            <label> Login failed. Please check your credentials again. </label>
+        </div>
+    </form>
+</div>
