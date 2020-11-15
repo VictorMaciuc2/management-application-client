@@ -1,1 +1,44 @@
-<p>departments works!</p>
+<div class='card'>
+    <div class='card-body'>
+      <div class='row'>
+        <div class='col-md'>Filter by:</div>
+        <div class='col-md'>
+          <input type='text'
+                 [(ngModel)]='listFilter' />
+        </div>
+      </div>
+      <div class='row'
+           *ngIf='listFilter'>
+        <div class='col-md'>
+          <h4>Filtered by: {{listFilter}}</h4>
+        </div>
+      </div>
+      <div class='table-responsive'>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let departament of filteredDepartaments'>
+              <td>
+               {{departament.name}}
+              </td>
+              <td>{{departament.description }}</td>
+              <td><button class='btn btn-primary'
+                (click)='edit()'>
+                Edit
+        </button></td>
+        <td><button class='btn btn-primary'
+            (click)='delete()'>
+            Delete
+    </button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+ 
