@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
+import { StorageService } from '../services/local-storage.service';
 
 @Injectable()
 export class LoginGuard implements CanActivate {
 
-    constructor() { }
+    constructor(private storage: StorageService,
+                private router: Router) { }
 
     canActivate() {
-        // Todo: If the user is logged in return false and redirect to home page, if not return true
+        var user = this.storage.getLoggedInUser();
+
+        if (user !== null && user !== undefined){
+            this.router.navigate(['/home']);
+            return false;
+        }
+
         return true;
     }
 }
