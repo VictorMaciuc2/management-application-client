@@ -11,7 +11,9 @@ export class DepartmentsComponent implements OnInit {
 
   constructor(private departmentsService: DepartmentsService) { }
   _listFilter = '';
- 
+  id: String;
+  name: String;
+  description: String;
   get listFilter(): string {
     return this._listFilter;
   }
@@ -26,14 +28,20 @@ export class DepartmentsComponent implements OnInit {
       return this.departaments.filter((department: Department) =>
       department.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
     }
-    delete(): void{}
-    edit(): void{}
+    delete(id : String): void{
+      this.departmentsService.delete(id);
+    }
+    edit(id: String): void{
+      this.departmentsService.update(id,this.name,this.description); 
+    }
+    save(): void{
+      this.departmentsService.save(this.id,this.name,this.description);
+    }
 
     ngOnInit(): void {
       this.departmentsService.getDepartments().subscribe({
         next: departaments => {
           this.departaments = departaments;
-          console.log(departaments)
         this.filteredDepartaments = this.departaments;
         }
       //  error: err => this.errorMessage = err

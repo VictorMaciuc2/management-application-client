@@ -1,15 +1,16 @@
+
 <div class='card'>
     <div class='card-body'>
       <div class='row'>
-        <div class='col-md'>Filter by:</div>
-        <div class='col-md'>
+        <div class='col-md-2'>Filter by:</div>
+        <div class='col-md-4'>
           <input type='text'
                  [(ngModel)]='listFilter' />
         </div>
       </div>
       <div class='row'
            *ngIf='listFilter'>
-        <div class='col-md'>
+        <div class='col-md-6'>
           <h4>Filtered by: {{listFilter}}</h4>
         </div>
       </div>
@@ -28,17 +29,34 @@
               </td>
               <td>{{departament.description }}</td>
               <td><button class='btn btn-primary'
-                (click)='edit()'>
+                (click)='edit(departament.id)'>
                 Edit
         </button></td>
         <td><button class='btn btn-primary'
-            (click)='delete()'>
+            (click)='delete(departament.id)'>
             Delete
     </button></td>
             </tr>
           </tbody>
         </table>
       </div>
+      <div class='table'>
+        <p>Add/Update:</p>
+        <div class='row'>
+          <input type='text' placeholder="id"
+                 [(ngModel)]='id' />
+        <div class='row'>
+          <input type='text' placeholder="name"
+                 [(ngModel)]='name' />
+        <div class='row'>
+          <input type='text' placeholder="description"
+                 [(ngModel)]='description' />         
+        </div>
+      </div>
+      <button class='btn btn-primary'
+            (click)='save()'>
+            Add
+    </button>
     </div>
   </div>
  

@@ -11,6 +11,16 @@ export class DepartmentsService {
   //private baseUrl = environment.baseApiUrl + '/departments';
   private baseUrl = 'assets/departments.json';
   constructor(private http: HttpClient) { }
+  save(id: String, name: String, description:String): void{
+    //api aici
+  }
+
+  delete(id : String): void{
+    //api aici
+  }
+  update(id : String, name: String, description: String): void{
+    //api aici
+  }
 
   getDepartments(): Observable<Department[]> {
     return this.http.get<Department[]>(this.baseUrl)
