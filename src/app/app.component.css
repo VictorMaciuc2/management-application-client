@@ -1,8 +1,36 @@
 .toolbar {
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: orange;
+  color: white;
+  font-weight: 600;}
+a {
+  color: white;
+  padding: 10px;
+
+}
+
+a:hover {
+  color: #125699;
+}
+
+.toolbar {
   display: flex;
   background-color: var(--main-color);
 }
 
 .toolbar img {
   margin: 0 40px;
+}
+
+.lnk:hover {
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+  border-bottom-color: orangered;
 }
