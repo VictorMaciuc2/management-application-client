@@ -10,14 +10,25 @@
   background-color: orange;
   color: white;
   font-weight: 600;}
+img {
+  margin: 0 16px;
+}
 a {
-  color: white;
+  color: ghostwhite;
   padding: 10px;
+}
 
+.content {
+  display: flex;
+  margin: 82px auto 32px;
+  padding: 0 16px;
+  max-width: 960px;
+  flex-direction: column;
+  align-items: center;
 }
 
 a:hover {
-  color: #125699;
+  color: darkblue;
 }
 
 .toolbar {
@@ -33,4 +44,14 @@ a:hover {
   border-bottom-width: 3px;
   border-bottom-style: solid;
   border-bottom-color: orangered;
+}
+
+button {
+  position: absolute;
+  right: 20px;
+}
+
+.mat-raised-button {
+  background-color: #00529b;
+  color: white;
 }
