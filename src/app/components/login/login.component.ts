@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { StorageService } from 'src/app/services/local-storage.service';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -7,11 +11,14 @@ import { LoginService } from '../../services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public username: string;
+  public email: string;
   public password: string;
+  private user: User;
   public showError = false;
 
-  constructor(private loginService: LoginService) { 
+  constructor(private loginService: LoginService,
+              private storageService: StorageService,
+              private router: Router) { 
   }
 
   ngOnInit(): void {
@@ -19,14 +26,16 @@ export class LoginComponent implements OnInit {
 
   onLogin(){
     this.showError = false;
-    var result = this.loginService.login(this.username, this.password);
-
-    if (result){
-      //om vedea
-    }
-    else{
-      this.showError = true;
-    }
+    this.loginService.login(this.email, this.password).subscribe(
+      user => {
+        this.user = user;
+        if (this.user !== null && this.user !== undefined){
+          this.router.navigate(['/home']);
+          this.storageService.setLoggedInUser(this.user);
+        }
+        else{
+          this.showError = true;
+        }
+      })
   }
-
 }

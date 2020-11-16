@@ -6,7 +6,7 @@ export class User {
     id: number;
     email: string;
     name: string;
-    role: Role;
-    seniorityLevel: SeniorityLevel;
-    department: Department;
+    role: string;
+    seniority_level: string;
+    department_id: number;
 }
