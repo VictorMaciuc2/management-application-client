@@ -8,7 +8,7 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router,
                 private storage: StorageService) { }
 
-    canActivate() { 
+    canActivate() {
         var user = this.storage.getLoggedInUser();
 
         if (user !== null && user !== undefined){

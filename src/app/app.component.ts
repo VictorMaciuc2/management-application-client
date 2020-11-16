@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
+import {StorageService} from './services/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +9,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'management-application-client';
-  constructor() { 
+  isLoggedIn: boolean;
+
+  constructor(private storage: StorageService,
+              private router: Router) {
+    router.events.subscribe(val => {
+      this.isLoggedIn = this.getLoginStatus();
+    });
+  }
+
+  getLoginStatus() {
+    const user = this.storage.getLoggedInUser();
+    if (user !== null && user !== undefined){
+      return true;
+    }
+    return false;
   }
 }
