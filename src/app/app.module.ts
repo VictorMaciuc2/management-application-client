@@ -16,6 +16,7 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginGuard } from './guards/login.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { FormsModule } from '@angular/forms';
+import { ClientsListComponent } from './components/clients-list/clients-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     ClientsComponent,
     DepartmentsComponent,
     FeedbackComponent,
-    LoginComponent
+    LoginComponent,
+    ClientsListComponent,
   ],
   imports: [
     BrowserModule,

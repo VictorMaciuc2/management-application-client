@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {Client} from '../../models/client';
 
 @Component({
@@ -7,13 +8,8 @@ import {Client} from '../../models/client';
   styleUrls: ['./clients.component.css']
 })
 export class ClientsComponent implements OnInit {
-  cl: Client[] = [
-    { id: 11, name: 'Dr Nice', description: 'a' },
-    { id: 12, name: 'Narco', description: 'nu' },
-    { id: 13, name: 'Bombasto', description: 'da' },
-  ];
-  clients: Client[] = this.cl;
-  constructor() { }
+  @Input() client: Client;
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }

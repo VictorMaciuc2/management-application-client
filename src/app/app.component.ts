@@ -23,6 +23,6 @@ export class AppComponent {
     if (user !== null && user !== undefined){
       return true;
     }
-    return true;
+    return false;
   }
 }

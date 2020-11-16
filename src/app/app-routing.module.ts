@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {ClientsListComponent} from './components/clients-list/clients-list.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { DepartmentsComponent } from './components/departments/departments.component';
 import { EmployeesComponent } from './components/employees/employees.component';
@@ -14,7 +15,7 @@ import { LoginGuard } from './guards/login.guard';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component : HomeComponent, canActivate: [AuthGuard]},
-  { path: 'clients', component: ClientsComponent},
+  { path: 'clients', component: ClientsComponent, canActivate:[AuthGuard]},
   { path: 'departments', component: DepartmentsComponent, canActivate: [AuthGuard]},
   { path: 'employees', component: EmployeesComponent, canActivate: [AuthGuard]},
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
