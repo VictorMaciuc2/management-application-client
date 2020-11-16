@@ -25,4 +25,9 @@ export class AppComponent {
     }
     return false;
   }
+
+  onSignOut() {
+    this.storage.removeItem('loggedInUser');
+    this.router.navigate(['/login']);
+  }
 }

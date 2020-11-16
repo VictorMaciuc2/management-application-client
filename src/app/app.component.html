@@ -8,7 +8,7 @@
   <a class="lnk" href="/employees">Employees</a>
   <a class="lnk" href="/departments">Departments</a>
   <a class="lnk" href="/feedback">Feedback</a>
-  <button mat-raised-button>Sign Out</button>
+  <button mat-raised-button (click)="onSignOut()">Sign Out</button>
 </div>
 <div class="content" role="main">
   <router-outlet></router-outlet>

@@ -9,7 +9,7 @@ import {Client} from '../../models/client';
 })
 export class ClientsComponent implements OnInit {
   @Input() client: Client;
-  constructor(public dialog: MatDialog) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
