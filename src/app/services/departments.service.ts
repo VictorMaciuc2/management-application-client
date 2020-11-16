@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable, throwError } from 'rxjs';
@@ -8,32 +8,28 @@ import { catchError, tap, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DepartmentsService {
-  //private baseUrl = environment.baseApiUrl + '/departments';
-  private baseUrl = 'assets/departments.json';
+  private baseUrl = environment.baseApiUrl + '/departments';
+  private httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'}) }
+
   constructor(private http: HttpClient) { }
-  save(id: String, name: String, description:String): void{
-    //api aici
+
+  save(department: Department): Observable<any> {
+    return this.http.post<Department>(this.baseUrl, department, this.httpOptions);
   }
 
-  delete(id : String): void{
-    //api aici
+  delete(id: String): Observable<any>{
+    return this.http.delete<any>(`${this.baseUrl}?departmentid=${id}`);
   }
-  update(id : String, name: String, description: String): void{
-    //api aici
+
+  update(department: Department): Observable<any> {
+    return this.http.post<Department>(this.baseUrl, department, this.httpOptions);
   }
 
   getDepartments(): Observable<Department[]> {
-    return this.http.get<Department[]>(this.baseUrl)
-      .pipe(
-        tap(data => console.log('All: ' + JSON.stringify(data)))
-        //catchError(this.handleError)
-      );
+    return this.http.get<Department[]>(this.baseUrl);
   }
 
-  getDepartment(id: number): Observable<Department | undefined> {
-    return this.getDepartments()
-      .pipe(
-        map((products: Department[]) => products.find(p => p.id === id))
-      );
+  getDepartment(id: number): Observable<Department> {
+    return this.http.get<Department>(`${this.baseUrl}?departmentid=${id}`);
   }
 }

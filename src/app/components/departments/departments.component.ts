@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Department } from '../../models/department';
-import {DepartmentsService} from '../../services/departments.service'
+import { DepartmentsService } from '../../services/departments.service'
 @Component({
   selector: 'app-departments',
   templateUrl: './departments.component.html',
@@ -19,33 +19,47 @@ export class DepartmentsComponent implements OnInit {
   }
   set listFilter(value: string) {
     this._listFilter = value;
-    this.filteredDepartaments = this.listFilter ? this.performFilter(this.listFilter) : this.departaments;}
-    filteredDepartaments: Department[] = [];
-    departaments: Department[] = [];
-  
-    performFilter(filterBy: string): Department[] {
-      filterBy = filterBy.toLocaleLowerCase();
-      return this.departaments.filter((department: Department) =>
-      department.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
-    }
-    delete(id : String): void{
-      this.departmentsService.delete(id);
-    }
-    edit(id: String): void{
-      this.departmentsService.update(id,this.name,this.description); 
-    }
-    save(): void{
-      this.departmentsService.save(this.id,this.name,this.description);
-    }
-
-    ngOnInit(): void {
-      this.departmentsService.getDepartments().subscribe({
-        next: departaments => {
-          this.departaments = departaments;
-        this.filteredDepartaments = this.departaments;
-        }
-      //  error: err => this.errorMessage = err
-      });
-    }
+    this.filteredDepartaments = this.listFilter ? this.performFilter(this.listFilter) : this.departaments;
   }
+  filteredDepartaments: Department[] = [];
+  departaments: Department[] = [];
+
+  performFilter(filterBy: string): Department[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.departaments.filter((department: Department) =>
+      department.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
+  }
+
+  delete(id: String): void {
+    this.departmentsService.delete(id).subscribe(_ => {});
+  }
+
+  edit(id: String): void {
+    var department = <Department>{
+      id: Number(id),
+      description: this.description,
+      name: this.name
+    };
+
+    this.departmentsService.update(department).subscribe(_ => {});
+  }
+
+  save(): void {
+    var department = <Department>{
+      id: Number(this.id),
+      description: this.description,
+      name: this.name
+    };
+
+    this.departmentsService.save(department).subscribe(_ => {});
+  }
+
+  ngOnInit(): void {
+    this.departmentsService.getDepartments().subscribe(departments => {
+      this.filteredDepartaments = departments;
+      this.departaments = departments;
+    });
+  }
+
+}
 
