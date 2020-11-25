@@ -22,7 +22,7 @@ export class DepartmentsService {
   }
 
   update(department: Department): Observable<any> {
-    return this.http.post<Department>(this.baseUrl, department, this.httpOptions);
+    return this.http.put<Department>(this.baseUrl, department, this.httpOptions);
   }
 
   getDepartments(): Observable<Department[]> {
