@@ -11,14 +11,17 @@ export class DepartmentsService {
   //private baseUrl = environment.baseApiUrl + '/departments';
   private baseUrl = 'assets/departments.json';
   constructor(private http: HttpClient) { }
-  save(id: String, name: String, description:String): void{
-    //api aici
+  save( name: String, description:String): void{
+   console.log(name)
+   //api aici
   }
 
   delete(id : String): void{
+    console.log(id)
     //api aici
   }
   update(id : String, name: String, description: String): void{
+    console.log(id)
     //api aici
   }
 
