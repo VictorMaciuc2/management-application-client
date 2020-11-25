@@ -1,5 +1,4 @@
 .toolbar {
-
   position: absolute;
   top: 0;
   left: 0;
@@ -7,7 +6,6 @@
   height: 60px;
   display: flex;
   align-items: center;
-  background-color: orange;
   color: white;
   font-weight: 600;}
 img {
@@ -20,20 +18,18 @@ a {
 
 .content {
   display: flex;
-  margin: 82px auto 32px;
+  margin-top: 70px;
   padding: 0 16px;
-  max-width: 960px;
   flex-direction: column;
-  align-items: center;
 }
 
 a:hover {
-  color: darkblue;
+  color: white;
 }
 
 .toolbar {
   display: flex;
-  background-color: var(--main-color);
+  background-color:black;
 }
 
 .toolbar img {
@@ -43,7 +39,7 @@ a:hover {
 .lnk:hover {
   border-bottom-width: 3px;
   border-bottom-style: solid;
-  border-bottom-color: orangered;
+  border-bottom-color: white;
 }
 
 button {

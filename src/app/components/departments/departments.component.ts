@@ -1,125 +1,86 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteConfirmationModal } from 'src/app/modals/delete-confirmation/delete-confirmation';
 import { Department } from 'src/app/models/department';
 import { DepartmentsService } from 'src/app/services/departments.service';
+
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+import { DepartmentModal } from 'src/app/modals/department-modal/department-modal';
+import { MatTableDataSource } from '@angular/material/table';
+
+
 @Component({
   selector: 'app-departments',
   styleUrls: ['./departments.component.css'],
-  providers: [DepartmentsService]
+  templateUrl: './departments.component.html'
 })
+
 export class DepartmentsComponent implements OnInit {
+  public dataSource;
+  public departments: Department[] = [];
+  public filterSearch: string;
+  public displayedColumns: string[] = ['name', 'description', 'edit', 'delete'];
 
-  constructor(private departmentsService: DepartmentsService) { }
-  _listFilter = '';
-  id: String;
-  name: String;
-  description: String;
-  displayedColumns: string[] = ['name','description'];
-  settings = {
-    columns: {
-      id: {
-        title: 'ID',
-        hide: true
-      },
-      name: {
-        title: 'Department name'
-      },
-      description: {
-        title: 'Description'
-      },
-    },
-    add:{confirmCreate:true},
-    delete:{confirmDelete:true},
-    edit:{
-      confirmSave:true
-     }
-  };
-  
-  onEditConfirm(event) {
-    if (window.confirm('Are you sure you want to update?')) {
-     // this.departmentsService.update(event.newData.id,event.newData.name,event.newData.description)
-      event.confirm.resolve(event.newData);
-    } else {
-      event.confirm.reject();
-    }
+
+  constructor(private departmentsService: DepartmentsService,
+    public dialog: MatDialog) { }
+
+  ngOnInit(): void {
+    this.departmentsService.getDepartments().subscribe(departaments => {
+      this.departments = departaments;
+      this.dataSource = new MatTableDataSource(this.departments);
+    });
   }
 
-  onCreateConfirm(event) {
-    if (window.confirm('Are you sure you want to save?')) {
-     // this.departmentsService.save(event.newData.name,event.newData.description)
-      event.confirm.resolve(event.newData);
-    } else {
-      event.confirm.reject();
-    }
+  onFilterChanged() {
+    this.dataSource = new MatTableDataSource(this.departments.filter(department => department.name.includes(this.filterSearch)));
   }
 
-  onDeleteConfirm(event) {
-    if (window.confirm('Are you sure you want to save?')) {
-      this.departmentsService.delete(event.data.id)
-      event.confirm.resolve(event.newData);
-    } else {
-      event.confirm.reject();
-    }
+  deleteDepartment(department) {
+    let dialogRef = this.dialog.open(DeleteConfirmationModal);
+
+    dialogRef.afterClosed().subscribe(response => {
+      if(response) {
+        this.departmentsService.delete(department.id).subscribe(_ => {
+          this.departments = this.departments.filter(d => d.id != department.id);
+          this.dataSource = new MatTableDataSource(this.departments);
+        })
+      }
+    });
   }
 
+  editDepartment(department: Department) {
+    let dialogRef = this.dialog.open(DepartmentModal, {
+      data: {
+        department: {...department}
+      }
+    });
 
-  get listFilter(): string {
-    return this._listFilter;
-  }
-  set listFilter(value: string) {
-    this._listFilter = value;
-    this.filteredDepartaments = this.listFilter ? this.performFilter(this.listFilter) : this.departaments;}
-    filteredDepartaments: Department[] = [];
-    departaments: Department[] = [];
-  
-    dataSource=[{name: "nume", description: "description"}]
-
-    
-    performFilter(filterBy: string): Department[] {
-      filterBy = filterBy.toLocaleLowerCase();
-      return this.departaments.filter((department: Department) =>
-      department.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
-    }
-    delete(id : String): void{
-      //id trimis de pe componentul din tabel pe care s-a dat click
-      this.departmentsService.delete(id);
-    }
-    edit(id: String): void{
-      //id trimis de pe componentul din tabel pe care s-a dat click
-      //this.departmentsService.update(id,this.name,this.description); 
-    }
-    save(): void{
-     // this.departmentsService.save(this.id,this.name,this.description);
-    }
-    
-
-    ngOnInit(): void {
-      this.departmentsService.getDepartments().subscribe({
-        next: departaments => {
-          this.departaments = departaments;
-        this.filteredDepartaments = this.departaments;
-        }
-      //  error: err => this.errorMessage = err
+    dialogRef.afterClosed().subscribe(department => {
+      this.departmentsService.update(department).subscribe(_ => {
+        var indexOfDepartment = this.departments.indexOf(this.departments.find(d => d.id == department.id));
+        this.departments[indexOfDepartment] = department;
+        this.dataSource = new MatTableDataSource(this.departments);
       });
-    }
+    });
   }
 
-  // delete(id: String): void {
-  //   this.departmentsService.delete(id).subscribe(_ => {
-  //     let indexOfDepartment = this.departaments.indexOf(this.departaments.find(d => d.id == Number(id)));
-  //     this.departaments.splice(indexOfDepartment, 1);
-  //   });
-  // }
+  saveDepartment() {
+    let dialogRef = this.dialog.open(DepartmentModal, {
+      data: {
+        department: new Department()
+      }
+    });
 
-  // edit(id: String): void {
-  //   var department = <Department>{
-  //     id: Number(id),
-  //     description: this.description,
-  //     name: this.name
-  //   };
-
-  //   this.departmentsService.update(department).subscribe(updatedDepartment => {
-  //     let indexOfDepartment = this.departaments.indexOf(this.departaments.find(d => d.id == Number(id)));
-  //     this.departaments[indexOfDepartment] = updatedDepartment;
-  //   });
-  // }
-
+    dialogRef.afterClosed().subscribe(department => {
+      this.departmentsService.save(department).subscribe(savedDepartment => {
+        this.departments.push(savedDepartment);
+        this.dataSource = new MatTableDataSource(this.departments);
+      });
+    });
+  }
+}
