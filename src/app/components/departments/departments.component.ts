@@ -31,7 +31,10 @@ export class DepartmentsComponent implements OnInit {
   }
 
   delete(id: String): void {
-    this.departmentsService.delete(id).subscribe(_ => {});
+    this.departmentsService.delete(id).subscribe(_ => {
+      let indexOfDepartment = this.departaments.indexOf(this.departaments.find(d => d.id == Number(id)));
+      this.departaments.splice(indexOfDepartment, 1);
+    });
   }
 
   edit(id: String): void {
@@ -41,7 +44,10 @@ export class DepartmentsComponent implements OnInit {
       name: this.name
     };
 
-    this.departmentsService.update(department).subscribe(_ => {});
+    this.departmentsService.update(department).subscribe(updatedDepartment => {
+      let indexOfDepartment = this.departaments.indexOf(this.departaments.find(d => d.id == Number(id)));
+      this.departaments[indexOfDepartment] = updatedDepartment;
+    });
   }
 
   save(): void {
@@ -51,7 +57,9 @@ export class DepartmentsComponent implements OnInit {
       name: this.name
     };
 
-    this.departmentsService.save(department).subscribe(_ => {});
+    this.departmentsService.save(department).subscribe(department => {
+      this.departaments.push(department);
+    });
   }
 
   ngOnInit(): void {
