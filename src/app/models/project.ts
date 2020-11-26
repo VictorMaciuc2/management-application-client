@@ -3,7 +3,7 @@ import { Tehnology } from './tehnology';
 import { User } from './user';
 
 export class Project {
-    id: number;
+    id: number = null;
     name: string;
     description: string;
     startDate: Date;

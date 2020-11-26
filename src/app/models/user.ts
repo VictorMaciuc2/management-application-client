@@ -1,12 +1,13 @@
-import { Role } from '../enums/role';
-import { SeniorityLevel } from '../enums/seniorityLevel';
+import { Role } from '../enums/Role';
+import { SeniorityLevel } from '../enums/SeniorityLevel';
 import { Department } from './department';
 
 export class User {
-    id: number;
+    id: number = null;
     email: string;
     name: string;
-    role: string;
-    seniority_level: string;
-    department_id: number;
+    seniorityLevel: SeniorityLevel;
+    role: Role;
+    departmentId: number;
+    department: Department;
 }

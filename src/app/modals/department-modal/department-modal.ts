@@ -19,8 +19,4 @@ export class DepartmentModal implements OnInit {
     ngOnInit() {
         this.department = this.data.department;
     }
-
-    closeDialog() {
-        this.dialogRef.close();
-    }
 }
