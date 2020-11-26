@@ -4,43 +4,33 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { User } from '../models/user';
 import { catchError, tap, map } from 'rxjs/operators';
-import { Role } from '../enums/role';
-import { SeniorityLevel } from '../enums/seniorityLevel';
 import { Department } from '../models/department';
+import { ConfigService } from '../utils/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeesService {
- // private baseUrl = environment.baseApiUrl + '/employees';
-  private baseUrl = 'assets/employeees.json';
-  constructor(private http: HttpClient) { }
-  save( email: String, name: String,rol : Role, seniorityLevel: SeniorityLevel, deparment: Department): void{
-   console.log(name)
-   //api aici
-  }
+  private baseUrl = environment.baseApiUrl + '/users';
 
-  delete(id : String): void{
-    console.log(id)
-    //api aici
-  }
-  update(id : String, email: String, name: String,rol : Role, seniorityLevel: SeniorityLevel, deparment: Department): void{
-    console.log(id)
-    //api aici
-  }
+  constructor(private http: HttpClient,
+    private configService: ConfigService) { }
 
   getEmployees(): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl)
-      .pipe(
-        tap(data => console.log('All: ' + JSON.stringify(data)))
-        //catchError(this.handleError)
-      );
+    return this.http.get<User[]>(this.baseUrl);
   }
 
-  getEmployee(id: number): Observable<User | undefined> {
-    return this.getEmployees()
-      .pipe(
-        map((products: User[]) => products.find(p => p.id === id))
-      );
+  save(user: User): Observable<any> {
+    return this.http.post<User>(this.baseUrl, user, this.configService.getHttpOptions());
   }
+
+  delete(id: String): Observable<any>{
+    return this.http.delete<any>(`${this.baseUrl}?userid=${id}`);
+  }
+
+  update(user: User): Observable<any> {
+    return this.http.put<User>(this.baseUrl, user, this.configService.getHttpOptions());
+  }
+
+  
 }

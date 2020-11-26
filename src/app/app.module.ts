@@ -29,7 +29,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DepartmentModal } from './modals/department-modal/department-modal';
 import { MatInputModule } from '@angular/material/input';
 import { ClientModal } from './modals/client-modal/client-modal';
-
+import { ConfigService } from './utils/config';
+import { EmployeeModal } from './modals/employee-modal/employee-modal';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+    
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +48,8 @@ import { ClientModal } from './modals/client-modal/client-modal';
     LoginComponent,
     DeleteConfirmationModal,
     DepartmentModal,
-    ClientModal
+    ClientModal,
+    EmployeeModal
   ],
   imports: [
     BrowserModule,
@@ -56,12 +63,17 @@ import { ClientModal } from './modals/client-modal/client-modal';
     MatButtonModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatInputModule
+    MatInputModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule
   ],
   entryComponents: [
     DeleteConfirmationModal,
     DepartmentModal,
-    ClientModal
+    ClientModal,
+    EmployeeModal
   ],
   providers: [
     LoginGuard,
@@ -71,7 +83,12 @@ import { ClientModal } from './modals/client-modal/client-modal';
     EmployeesService,
     StorageService,
     LoginService,
-    ProjectsService
+    ProjectsService,
+    ConfigService
+  ],
+  exports: [
+    MatFormFieldModule, 
+    MatInputModule 
   ],
   bootstrap: [AppComponent]
 })

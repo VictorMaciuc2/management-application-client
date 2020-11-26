@@ -1,8 +1,0 @@
-[{
-    "id" : 1,
-    "email": "email", 
-    "name" : "nume",
-    "role" : "rol",
-    "seniorityLevel": "senior",
-    "department": "department"
-}]

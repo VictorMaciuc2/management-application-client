@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { Department } from '../models/department';
 import { catchError, tap, map } from 'rxjs/operators';
+import { ConfigService } from '../utils/config';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,10 +12,11 @@ export class DepartmentsService {
   private baseUrl = environment.baseApiUrl + '/departments';
   private httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'}) }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private configService: ConfigService) { }
 
   save(department: Department): Observable<any> {
-    return this.http.post<Department>(this.baseUrl, department, this.httpOptions);
+    return this.http.post<Department>(this.baseUrl, department, this.configService.getHttpOptions());
   }
 
   delete(id: String): Observable<any>{
@@ -22,7 +24,7 @@ export class DepartmentsService {
   }
 
   update(department: Department): Observable<any> {
-    return this.http.put<Department>(this.baseUrl, department, this.httpOptions);
+    return this.http.put<Department>(this.baseUrl, department, this.configService.getHttpOptions());
   }
 
   getDepartments(): Observable<Department[]> {

@@ -1,0 +1,42 @@
+.mat-table {
+    width: 100%;
+}
+
+.add-employee-button {
+    margin-bottom: 15px;
+    background: #00529b;
+    float: right;
+    margin-top: -38px;
+}
+
+.mat-column-name {
+    width: 18%;
+}
+
+.mat-column-email {
+    width: 18%;
+}
+
+.mat-column-role {
+    width: 18%;
+}
+
+.mat-column-seniority-level {
+    width: 18%;
+}
+
+.mat-column-department {
+    width: 18%;
+}
+
+.mat-column-edit {
+    width: 5%;
+}
+
+.mat-column-delete {
+    width: 5%;
+}
+
+.input-group {
+    width: 15% !important;
+}

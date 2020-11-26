@@ -20,8 +20,4 @@ export class ClientModal implements OnInit {
     ngOnInit() {
         this.client = this.data.client;
     }
-
-    closeDialog() {
-        this.dialogRef.close();
-    }
 }

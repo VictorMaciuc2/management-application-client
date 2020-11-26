@@ -1,0 +1,48 @@
+<form class="example-form" *ngIf="employee">
+    <p>
+        <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input type="text" matInput [(ngModel)]="employee.name" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput [(ngModel)]="employee.email" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="fill">
+            <mat-label>Role</mat-label>
+            <mat-select [(ngModel)]="employee.role" [ngModelOptions]="{standalone: true}">
+                <mat-option *ngFor="let role of rolesKeys" [value]="roles[role]">
+                    {{role}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="fill">
+            <mat-label>Seniority Level</mat-label>
+            <mat-select [(ngModel)]="employee.seniorityLevel" [ngModelOptions]="{standalone: true}">
+                <mat-option *ngFor="let seniority of seniorityLevelsKeys" [value]="seniorityLevels[seniority]">
+                    {{seniority}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </p>
+
+    <p>
+        <mat-form-field appearance="fill">
+            <mat-label>Department</mat-label>
+            <mat-select [(ngModel)]="employee.departmentId" [ngModelOptions]="{standalone: true}">
+                <mat-option *ngFor="let department of departments" [value]="department.id">
+                    {{department.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </p>
+</form>
+<button mat-flat-button [mat-dialog-close]="employee" color="primary">
+    Save
+</button>
