@@ -16,7 +16,6 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginGuard } from './guards/login.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { FormsModule } from '@angular/forms';
-import { ClientsListComponent } from './components/clients-list/clients-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteConfirmationModal } from './modals/delete-confirmation/delete-confirmation';
@@ -29,6 +28,7 @@ import { ProjectsService } from './services/projects.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DepartmentModal } from './modals/department-modal/department-modal';
 import { MatInputModule } from '@angular/material/input';
+import { ClientModal } from './modals/client-modal/client-modal';
 
 @NgModule({
   declarations: [
@@ -40,9 +40,9 @@ import { MatInputModule } from '@angular/material/input';
     DepartmentsComponent,
     FeedbackComponent,
     LoginComponent,
-    ClientsListComponent,
     DeleteConfirmationModal,
-    DepartmentModal
+    DepartmentModal,
+    ClientModal
   ],
   imports: [
     BrowserModule,
@@ -60,7 +60,8 @@ import { MatInputModule } from '@angular/material/input';
   ],
   entryComponents: [
     DeleteConfirmationModal,
-    DepartmentModal
+    DepartmentModal,
+    ClientModal
   ],
   providers: [
     LoginGuard,
