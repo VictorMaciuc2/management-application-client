@@ -1,5 +1,5 @@
 export class Client {
-  id: number;
+  id: number = null;
   name: string;
   description: string;
 }
