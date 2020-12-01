@@ -1,0 +1,29 @@
+<form class="example-form" *ngIf="project">
+    <p>
+        <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input type="text" matInput [(ngModel)]="project.name" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field class="example-full-width">
+            <mat-label>Description</mat-label>
+            <input type="text" matInput [(ngModel)]="project.description" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="example-full-width">
+        <mat-label>Start Date</mat-label>
+        <input type="date" matInput [(ngModel)]="project.startDate" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="example-full-width">
+        <mat-label>Deadline Date</mat-label>
+        <input type="date" matInput [(ngModel)]="project.deadlineDate" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+    </p>
+</form>
+<button mat-flat-button [mat-dialog-close]="project" color="primary">
+    Save
+</button>

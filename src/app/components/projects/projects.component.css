@@ -1,0 +1,46 @@
+.mat-table {
+  width: 100%;
+}
+
+.add-project-button {
+  margin-bottom: 15px;
+  background: #00529b;
+  float: right;
+  margin-top: -38px;
+}
+
+.mat-column-name {
+  width: 20%;
+}
+
+.mat-column-description {
+  width: 20%;
+}
+
+.mat-column-startDate {
+  width: 15%;
+}
+
+.mat-column-endDate {
+  width: 15%;
+}
+
+.mat-column-deadline {
+  width: 10%;
+}
+
+.mat-column-technologies {
+  width: 10%;
+}
+
+.mat-column-edit {
+  width: 15%;
+}
+
+.mat-column-delete {
+  width: 15%;
+}
+
+.input-group {
+  width: 15% !important;
+}

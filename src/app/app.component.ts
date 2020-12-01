@@ -20,6 +20,7 @@ export class AppComponent {
 
   getLoginStatus() {
     const user = this.storage.getLoggedInUser();
+
     if (user !== null && user !== undefined){
       return true;
     }
