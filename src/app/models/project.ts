@@ -1,5 +1,5 @@
 import { Department } from './department';
-import { Tehnology } from './tehnology';
+import {Technology} from './technology';
 import { User } from './user';
 
 export class Project {
@@ -9,6 +9,6 @@ export class Project {
     startDate: Date;
     endDate: Date;
     deadlineDate: Date;
-    tehnologies: Tehnology[];
+    technologies: Technology[];
     users: User[];
 }

@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteConfirmationModal } from './modals/delete-confirmation/delete-confirmation';
+import {ProjectModal} from './modals/project-modal/project-modal';
 import { ClientsService } from './services/clients.service';
 import { DepartmentsService } from './services/departments.service';
 import { EmployeesService } from './services/employees.service';
@@ -35,7 +36,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-    
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,8 @@ import { MatOptionModule } from '@angular/material/core';
     DeleteConfirmationModal,
     DepartmentModal,
     ClientModal,
-    EmployeeModal
+    EmployeeModal,
+    ProjectModal
   ],
   imports: [
     BrowserModule,
@@ -87,8 +89,8 @@ import { MatOptionModule } from '@angular/material/core';
     ConfigService
   ],
   exports: [
-    MatFormFieldModule, 
-    MatInputModule 
+    MatFormFieldModule,
+    MatInputModule
   ],
   bootstrap: [AppComponent]
 })
