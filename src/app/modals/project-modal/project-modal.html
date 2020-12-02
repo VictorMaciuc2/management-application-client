@@ -1,29 +1,62 @@
 <form class="example-form" *ngIf="project">
-    <p>
-        <mat-form-field class="example-full-width">
-            <mat-label>Name</mat-label>
-            <input type="text" matInput [(ngModel)]="project.name" [ngModelOptions]="{standalone: true}">
-        </mat-form-field>
-    </p>
-    <p>
-        <mat-form-field class="example-full-width">
-            <mat-label>Description</mat-label>
-            <input type="text" matInput [(ngModel)]="project.description" [ngModelOptions]="{standalone: true}">
-        </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field class="example-full-width">
-        <mat-label>Start Date</mat-label>
-        <input type="date" matInput [(ngModel)]="project.startDate" [ngModelOptions]="{standalone: true}">
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field class="example-full-width">
-        <mat-label>Deadline Date</mat-label>
-        <input type="date" matInput [(ngModel)]="project.deadlineDate" [ngModelOptions]="{standalone: true}">
-      </mat-form-field>
-    </p>
+  <p>
+    <mat-form-field class="example-full-width" style="width:450px !important">
+      <mat-label>Name</mat-label>
+      <input type="text" matInput [(ngModel)]="project.name" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="example-full-width" style="width:450px !important">
+      <mat-label>Description</mat-label>
+      <input type="text" matInput [(ngModel)]="project.description" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="example-full-width" style="width:450px !important">
+      <mat-label>Start Date</mat-label>
+      <input type="date" matInput [(ngModel)]="project.startDate" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="example-full-width" style="width:450px !important">
+      <mat-label>Deadline Date</mat-label>
+      <input type="date" matInput [(ngModel)]="project.deadlineDate" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </p>
+
+  <div class="tech-container">
+    <div class="tech-dropdown" *ngIf="!isTechnologyInputVisible">
+      <ng-multiselect-dropdown [placeholder]="'Select technologies'" [settings]="dropdownSettings" [data]="technologies"
+        [(ngModel)]="project.technologies" [ngModelOptions]="{standalone: true}">
+      </ng-multiselect-dropdown>
+    </div>
+
+    <div class="input-group mb-3 input-tech" *ngIf="isTechnologyInputVisible">
+      <input type="text" (keyup)="onKeyUp($event)" class="form-control" placeholder="Technology" aria-label="Username"
+        aria-describedby="basic-addon1">
+    </div>
+    <button mat-flat-button class="add-tech-button" (click)="showAddTechnology()">
+      <span class="material-icons">
+        add_circle
+      </span>
+    </button>
+  </div>
+
+  <p>
+    <ng-multiselect-dropdown [placeholder]="'Select employees'" [settings]="dropdownSettings" [data]="employees"
+      [(ngModel)]="project.employees" [ngModelOptions]="{standalone: true}">
+    </ng-multiselect-dropdown>
+  </p>
+
+  <p>
+    <ng-multiselect-dropdown [placeholder]="'Select client'" [settings]="clientDropdownSettings" [data]="clients"
+      [(ngModel)]="project.client" [ngModelOptions]="{standalone: true}">
+    </ng-multiselect-dropdown>
+  </p>
+
+
+
 </form>
-<button mat-flat-button [mat-dialog-close]="project" color="primary">
-    Save
+<button mat-flat-button [mat-dialog-close]="project" class="save-button" color="primary">
+  Save
 </button>

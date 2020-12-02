@@ -36,6 +36,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { MatOptionModule } from '@angular/material/core';
     MatMenuModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   entryComponents: [
     DeleteConfirmationModal,

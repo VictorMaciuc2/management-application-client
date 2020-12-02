@@ -1,3 +1,4 @@
+import { Client } from './client';
 import { Department } from './department';
 import {Technology} from './technology';
 import { User } from './user';
@@ -7,8 +8,10 @@ export class Project {
     name: string;
     description: string;
     startDate: Date;
-    endDate: Date;
+    endDate: Date = null;
     deadlineDate: Date;
-    technologies: Technology[];
-    users: User[];
+    clientId: number;
+    client: Client;
+    technologies: Technology[] = [];
+    employees: User[] = [];
 }

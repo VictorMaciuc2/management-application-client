@@ -1,25 +1,37 @@
-<div class="login-container">
-    <form class="login-form" (ngSubmit)="onLogin()"
-          name='loginForm'
-          #loginForm='ngForm'>
-        <div class="label">
-            <label> Welcome </label>
-        </div>
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-form">
+                <span class="login100-form-title">
+                    Sign In
+                </span>
 
-        <div>
-            <input name="email" #usernameId="ngModel" type="text" placeholder="Email"
-             [(ngModel)]="email" required/>
-        </div>
+                <div class="wrap-input100 validate-input">
+                    <input class="input100" type="text" name="email" placeholder="Email" [(ngModel)]="email">
+                    <span class="focus-input100"></span>
+                </div>
 
-        <div>
-            <input name="password" #passwordId="ngModel" type="password" placeholder="Password" 
-            [(ngModel)]="password" required/>
-        </div>
+                <div class="wrap-input100 validate-input">
+                    <input class="input100" type="password" name="pass" placeholder="Password" [(ngModel)]="password">
+                    <span class="focus-input100"></span>
+                </div>
 
-        <button type="submit" [disabled]='!loginForm.form.valid' > Login </button>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" (click)="onLogin()">
+                        Log in
+                    </button>
+                </div>
 
-        <div class="label error" *ngIf="showError">
-            <label> Login failed. Please check your credentials again. </label>
+                <div class="flex-col-c">
+                    <span class="txt1 no-account">
+                        Don’t have an account?
+                    </span>
+
+                    <a class="txt3">
+                        Contact your admin
+                    </a>
+                </div>
+            </div>
         </div>
-    </form>
+    </div>
 </div>

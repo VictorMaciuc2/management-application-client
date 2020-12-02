@@ -10,7 +10,6 @@ import { ConfigService } from '../utils/config';
 })
 export class DepartmentsService {
   private baseUrl = environment.baseApiUrl + '/departments';
-  private httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'}) };
 
   constructor(private http: HttpClient,
     private configService: ConfigService) { }
