@@ -1,12 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {MatTableDataSource} from '@angular/material/table';
-import {DeleteConfirmationModal} from '../../modals/delete-confirmation/delete-confirmation';
-import {DepartmentModal} from '../../modals/department-modal/department-modal';
-import {ProjectModal} from '../../modals/project-modal/project-modal';
-import {Department} from '../../models/department';
-import {Project} from '../../models/project';
-import {ProjectsService} from '../../services/projects.service';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
+import { ClientsService } from 'src/app/services/clients.service';
+import { EmployeesService } from 'src/app/services/employees.service';
+import { TechnologiesService } from 'src/app/services/technologies.service';
+import { DeleteConfirmationModal } from '../../modals/delete-confirmation/delete-confirmation';
+import { DepartmentModal } from '../../modals/department-modal/department-modal';
+import { ProjectModal } from '../../modals/project-modal/project-modal';
+import { Department } from '../../models/department';
+import { Project } from '../../models/project';
+import { ProjectsService } from '../../services/projects.service';
 
 @Component({
   selector: 'app-projects',
@@ -18,11 +21,13 @@ export class ProjectsComponent implements OnInit {
   public projects: Project[] = [];
   public filterSearch: string;
   // tslint:disable-next-line:max-line-length
-  public displayedColumns: string[] = ['name', 'description', 'startDate', 'endDate', 'deadline', 'technologies', 'edit',
-    'delete'];
+  public displayedColumns: string[] = ['name', 'description', 'startDate', 'endDate', 'deadline', 'technologies', 'edit', 'delete'];
 
   constructor(private projectsService: ProjectsService,
-              public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private technologiesService: TechnologiesService,
+    private employeeService: EmployeesService,
+    private clientsService: ClientsService) {
   }
 
   ngOnInit(): void {
@@ -40,7 +45,7 @@ export class ProjectsComponent implements OnInit {
     let dialogRef = this.dialog.open(DeleteConfirmationModal);
 
     dialogRef.afterClosed().subscribe(response => {
-      if(response) {
+      if (response) {
         this.projectsService.delete(project.id).subscribe(_ => {
           this.projects = this.projects.filter(d => d.id != project.id);
           this.dataSource = new MatTableDataSource(this.projects);
@@ -52,7 +57,7 @@ export class ProjectsComponent implements OnInit {
   editProject(project: Project) {
     let dialogRef = this.dialog.open(ProjectModal, {
       data: {
-        project: {...project}
+        project: { ...project }
       }
     });
 
@@ -65,11 +70,46 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  saveProject() {
+  showSaveModal(technologies, employees, clients) {
     let dialogRef = this.dialog.open(ProjectModal, {
       data: {
-        project: new Project()
+        project: new Project(),
+        technologies: technologies,
+        employees: employees,
+        clients: clients
       }
     });
+
+    dialogRef.afterClosed().subscribe(project => {
+      if (project) {
+        project.clientId = project.client[0].id;
+        this.projectsService.save(project).subscribe(savedProject => {
+          this.projects.push(savedProject);
+          this.dataSource = new MatTableDataSource(this.projects);
+
+          //assign employees
+          this.projectsService.assignEmployeesOnProject(savedProject.id, project.employees).subscribe(_ => {});
+
+          //remove ids asigned for UI
+           project.technologies.forEach(tech => {
+            if(tech.id <= 0)
+             tech.id = null;
+          });
+
+          //assign technologies
+          this.projectsService.assignTechnologiesOnProject(savedProject.id, project.technologies).subscribe(_ => {});
+        })
+      }
+    })
+  }
+
+  saveProject() {
+    this.technologiesService.getTechnologies().subscribe(technologies => {
+      this.employeeService.getEmployees().subscribe(employees => {
+        this.clientsService.getClients().subscribe(clients => {
+          this.showSaveModal(technologies, employees, clients);
+        })
+      })
+    })
   }
 }

@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import { environment } from 'src/environments/environment';
 import {Department} from '../models/department';
 import {Project} from '../models/project';
+import { Technology } from '../models/technology';
+import { User } from '../models/user';
 import {ConfigService} from '../utils/config';
 
 @Injectable({
@@ -11,7 +13,6 @@ import {ConfigService} from '../utils/config';
 })
 export class ProjectsService {
   private baseUrl = environment.baseApiUrl + '/projects';
-  private httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'}) };
 
   constructor(private http: HttpClient,
               private configService: ConfigService) { }
@@ -30,5 +31,13 @@ export class ProjectsService {
 
   update(project: Project): Observable<any> {
     return this.http.put<Project>(this.baseUrl, project, this.configService.getHttpOptions());
+  }
+
+  assignTechnologiesOnProject(projectId: number, technologies: Technology[]): Observable<any> {
+    return this.http.post<Technology>(`${this.baseUrl}/technologies?projectid=${projectId}`, {technologies: technologies}, this.configService.getHttpOptions());
+  }
+
+  assignEmployeesOnProject(projectId: number, employees: User[]): Observable<any> {
+    return this.http.post<Technology>(`${this.baseUrl}/users?projectid=${projectId}`, {users: employees}, this.configService.getHttpOptions());
   }
 }
