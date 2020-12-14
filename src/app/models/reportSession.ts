@@ -2,9 +2,10 @@ import { Project } from './project';
 import { User } from './user';
 
 export class ReportSession {
+    id: number;
     user: User;
     project: Project;
-    startDate: Date;
-    endDate: Date;
-    wasCompleted: boolean;
+    start_date: Date;
+    end_date: Date;
+    was_completed: boolean;
 }

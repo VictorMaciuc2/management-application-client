@@ -37,6 +37,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { FeedbackModal } from './modals/feedback-modal/feedback-modal';
+import { MatRadioModule } from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     DepartmentModal,
     ClientModal,
     EmployeeModal,
-    ProjectModal
+    ProjectModal,
+    FeedbackModal
   ],
   imports: [
     BrowserModule,
@@ -71,6 +74,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
+    MatRadioModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
   entryComponents: [
