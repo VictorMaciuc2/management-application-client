@@ -26,16 +26,23 @@
 
   <div class="tech-container">
     <div class="tech-dropdown" *ngIf="!isTechnologyInputVisible">
-      <ng-multiselect-dropdown [placeholder]="'Select technologies'" [settings]="dropdownSettings" [data]="technologies"
-        [(ngModel)]="project.technologies" [ngModelOptions]="{standalone: true}">
-      </ng-multiselect-dropdown>
+      <mat-form-field appearance="fill">
+        <mat-label>Technologies</mat-label>
+        <mat-select [(ngModel)]="project.technologies" [ngModelOptions]="{standalone: true}" multiple (selectionChange)="setTechAndEmployeesGroup()">
+          <mat-option *ngFor="let technology of technologies" [value]="technology">
+            {{technology.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="input-group mb-3 input-tech" *ngIf="isTechnologyInputVisible">
       <input type="text" (keyup)="onKeyUp($event)" class="form-control" placeholder="Technology" aria-label="Username"
         aria-describedby="basic-addon1">
     </div>
-    <button mat-flat-button class="add-tech-button" (click)="showAddTechnology()">
+    <button mat-flat-button
+      [ngClass]="{'add-tech-button-input': isTechnologyInputVisible, 'add-tech-button-dropdown': !isTechnologyInputVisible}"
+      (click)="showAddTechnology()">
       <span class="material-icons">
         add_circle
       </span>
@@ -43,20 +50,31 @@
   </div>
 
   <p>
-    <ng-multiselect-dropdown [placeholder]="'Select employees'" [settings]="dropdownSettings" [data]="employees"
-      [(ngModel)]="project.employees" [ngModelOptions]="{standalone: true}">
-    </ng-multiselect-dropdown>
+    <mat-form-field appearance="fill">
+      <mat-label>Employees</mat-label>
+      <mat-select [(ngModel)]="project.employees" [ngModelOptions]="{standalone: true}" multiple>
+        <mat-optgroup *ngFor="let tech of techAndEmployeesGroup" [label]="tech.name">
+          <mat-option *ngFor="let user of tech.users" [value]="user">
+            {{user.name}} {{user.experienceInDays | experienceToString: tech}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
   </p>
 
   <p>
-    <ng-multiselect-dropdown [placeholder]="'Select client'" [settings]="clientDropdownSettings" [data]="clients"
-      [(ngModel)]="project.client" [ngModelOptions]="{standalone: true}">
-    </ng-multiselect-dropdown>
+    <mat-form-field appearance="fill">
+      <mat-label>Client</mat-label>
+      <mat-select [(ngModel)]="project.client" [ngModelOptions]="{standalone: true}">
+        <mat-option *ngFor="let client of clients" [value]="client">
+          {{client.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </p>
-
-
-
 </form>
+
+
 <button mat-flat-button [mat-dialog-close]="project" class="save-button" color="primary">
   Save
 </button>
