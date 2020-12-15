@@ -77,7 +77,7 @@ export class ProjectModal implements OnInit {
 
     showAddTechnology() {
         if (this.isTechnologyInputVisible && this.technologyName.length != 0) {
-            this.technologies.push({ id: 0, name: this.technologyName })
+            this.technologies.push({ id: null, name: this.technologyName })
             this.technologyName = '';
         }
         this.isTechnologyInputVisible = !this.isTechnologyInputVisible;
