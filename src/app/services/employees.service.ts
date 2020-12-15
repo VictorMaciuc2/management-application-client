@@ -20,6 +20,10 @@ export class EmployeesService {
     return this.http.get<User[]>(this.baseUrl);
   }
 
+  getEmployeesByRecommandation(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/technologies`);
+  }
+
   save(user: User): Observable<any> {
     return this.http.post<User>(this.baseUrl, user, this.configService.getHttpOptions());
   }
@@ -31,6 +35,4 @@ export class EmployeesService {
   update(user: User): Observable<any> {
     return this.http.put<User>(this.baseUrl, user, this.configService.getHttpOptions());
   }
-
-  
 }

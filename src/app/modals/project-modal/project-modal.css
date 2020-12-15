@@ -4,9 +4,14 @@
     background: #337ab7 !important;
 }
 
-.add-tech-button {
+.add-tech-button-input {
     float: right;
     margin-top: -54px;
+}
+
+.add-tech-button-dropdown {
+    float: right;
+    margin-top: -82px;
 }
 
 .tech-container {
@@ -25,6 +30,6 @@
     width:450px !important;
 }
 
-::ng-deep .tech-container .multiselect-dropdown {
+::ng-deep .mat-form-field-type-mat-select {
     width: 86% !important;
 }

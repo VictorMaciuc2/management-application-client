@@ -3,12 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationModal } from 'src/app/modals/delete-confirmation/delete-confirmation';
 import { Department } from 'src/app/models/department';
 import { DepartmentsService } from 'src/app/services/departments.service';
-
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
 import { DepartmentModal } from 'src/app/modals/department-modal/department-modal';
 import { MatTableDataSource } from '@angular/material/table';
 

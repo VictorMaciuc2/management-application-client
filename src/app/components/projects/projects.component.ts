@@ -20,7 +20,6 @@ export class ProjectsComponent implements OnInit {
   public dataSource;
   public projects: Project[] = [];
   public filterSearch: string;
-  // tslint:disable-next-line:max-line-length
   public displayedColumns: string[] = ['name', 'description', 'startDate', 'endDate', 'deadline', 'technologies', 'edit', 'delete'];
 
   constructor(private projectsService: ProjectsService,
@@ -70,34 +69,29 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  showSaveModal(technologies, employees, clients) {
+  showSaveModal(technologies, employees, employeesWithRecommandation, clients) {
     let dialogRef = this.dialog.open(ProjectModal, {
       data: {
         project: new Project(),
         technologies: technologies,
         employees: employees,
+        employeesWithRecommandation: employeesWithRecommandation,
         clients: clients
       }
     });
 
     dialogRef.afterClosed().subscribe(project => {
       if (project) {
-        project.clientId = project.client[0].id;
+        project.clientId = project.client.id;
         this.projectsService.save(project).subscribe(savedProject => {
           this.projects.push(savedProject);
           this.dataSource = new MatTableDataSource(this.projects);
 
           //assign employees
-          this.projectsService.assignEmployeesOnProject(savedProject.id, project.employees).subscribe(_ => {});
-
-          //remove ids asigned for UI
-           project.technologies.forEach(tech => {
-            if(tech.id <= 0)
-             tech.id = null;
-          });
+          this.projectsService.assignEmployeesOnProject(savedProject.id, project.employees.map(e => employees.find(employee => employee.id == e.id))).subscribe(_ => { });
 
           //assign technologies
-          this.projectsService.assignTechnologiesOnProject(savedProject.id, project.technologies).subscribe(_ => {});
+          this.projectsService.assignTechnologiesOnProject(savedProject.id, project.technologies).subscribe(_ => { });
         })
       }
     })
@@ -106,8 +100,10 @@ export class ProjectsComponent implements OnInit {
   saveProject() {
     this.technologiesService.getTechnologies().subscribe(technologies => {
       this.employeeService.getEmployees().subscribe(employees => {
-        this.clientsService.getClients().subscribe(clients => {
-          this.showSaveModal(technologies, employees, clients);
+        this.employeeService.getEmployeesByRecommandation().subscribe(employeesWithRecommandation => {
+          this.clientsService.getClients().subscribe(clients => {
+            this.showSaveModal(technologies, employees, employeesWithRecommandation, clients);
+          })
         })
       })
     })
