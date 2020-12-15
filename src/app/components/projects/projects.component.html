@@ -70,6 +70,28 @@
     </td>ng
   </ng-container>
 
+  <ng-container matColumnDef="end">
+    <th mat-header-cell *matHeaderCellDef> End project </th>
+    <td mat-cell *matCellDef="let project">
+      <button mat-button (click)="endProject(project)">
+        <span class="material-icons">
+          check
+        </span>
+      </button>
+    </td>ng
+  </ng-container>
+
+  <ng-container matColumnDef="play">
+    <th mat-header-cell *matHeaderCellDef> Start report session </th>
+    <td mat-cell *matCellDef="let project">
+      <button mat-button (click)="startSession(project)">
+        <span class="material-icons">
+          play_arrow
+        </span>
+      </button>
+    </td>ng
+  </ng-container>
+
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
