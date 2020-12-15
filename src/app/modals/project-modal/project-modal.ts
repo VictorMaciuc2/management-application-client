@@ -29,10 +29,17 @@ export class ProjectModal implements OnInit {
         this.employees = this.data.employees;
         this.employeesWithRecommandation = this.data.employeesWithRecommandation;
         this.clients = this.data.clients;
-        this.setTechAndEmployeesGroup();
+        this.setTechnologiesAndClient();
+        this.setTechGroup();
     }
 
-    setTechAndEmployeesGroup() {
+    setTechnologiesAndClient() {
+        this.project.technologies = this.technologies.filter(t => this.project.technologies.some(tech => tech.id == t.id));
+        this.project.client = this.clients.find(c => c.id == this.project.clientId);
+    }
+
+    setTechGroup() {
+        var employeesList = [];
         this.techAndEmployeesGroup = this.project.technologies.map(tech => {
             (<any>tech).users = [];
             return tech;
@@ -56,6 +63,10 @@ export class ProjectModal implements OnInit {
             var indexOfTechnology = employeeWithMaximumDays.experienceInDays != 0 ? this.techAndEmployeesGroup.findIndex(tech => tech.id == technology.id): this.techAndEmployeesGroup.length - 1;
             if(indexOfTechnology < 0)
                 indexOfTechnology = this.techAndEmployeesGroup.length - 1;
+            
+            if(this.project.employees.some(e => e.id == employeeWithMaximumDays.id ))
+                employeesList.push(employeeWithMaximumDays);
+
             this.techAndEmployeesGroup[indexOfTechnology].users.push(employeeWithMaximumDays);
         })
 
@@ -66,6 +77,8 @@ export class ProjectModal implements OnInit {
         this.techAndEmployeesGroup.forEach(tech => {
             tech.users.sort((a, b) => b.experienceInDays - a.experienceInDays);
         });
+
+        this.project.employees = employeesList;
     }
 
     onKeyUp(event) {

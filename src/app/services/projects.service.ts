@@ -41,7 +41,19 @@ export class ProjectsService {
     return this.http.post<Technology>(`${this.baseUrl}/users?projectid=${projectId}`, {users: employees}, this.configService.getHttpOptions());
   }
 
+  unassignTechnologiesOnProject(projectId: number, technologyId: number): Observable<any> {
+    return this.http.delete<Technology>(`${this.baseUrl}/technologies?projectid=${projectId}&&techid=${technologyId}`);
+  }
+
+  unassignEmployeesOnProject(projectId: number, employeeId: number): Observable<any> {
+    return this.http.delete<Technology>(`${this.baseUrl}/users?projectid=${projectId}&&userid=${employeeId}`);
+  }
+
   getUsersByProject(projectId: number): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}/users?projectid=${projectId}`);
+  }
+
+  getTechnologiesByProject(projectId: number): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/technologies?projectid=${projectId}`);
   }
 }

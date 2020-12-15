@@ -20,7 +20,7 @@ export class ProjectsComponent implements OnInit {
   public dataSource;
   public projects: Project[] = [];
   public filterSearch: string;
-  public displayedColumns: string[] = ['name', 'description', 'startDate', 'endDate', 'deadline', 'technologies', 'edit', 'delete'];
+  public displayedColumns: string[] = ['name', 'description', 'startDate', 'endDate', 'deadline', 'edit', 'delete'];
 
   constructor(private projectsService: ProjectsService,
     public dialog: MatDialog,
@@ -54,19 +54,59 @@ export class ProjectsComponent implements OnInit {
   }
 
   editProject(project: Project) {
+    this.technologiesService.getTechnologies().subscribe(technologies => {
+      this.employeeService.getEmployees().subscribe(employees => {
+        this.employeeService.getEmployeesByRecommandation().subscribe(employeesWithRecommandation => {
+          this.clientsService.getClients().subscribe(clients => {
+            this.showEditModal(project, technologies, employees, employeesWithRecommandation, clients);
+          })
+        })
+      })
+    })
+  }
+
+  showEditModal(selectedProject, technologies, employees, employeesWithRecommandation, clients) {
     let dialogRef = this.dialog.open(ProjectModal, {
       data: {
-        project: { ...project }
+        project: { ...selectedProject },
+        technologies: technologies,
+        employees: employees,
+        employeesWithRecommandation: employeesWithRecommandation,
+        clients: clients
       }
     });
 
     dialogRef.afterClosed().subscribe(project => {
-      this.projectsService.update(project).subscribe(_ => {
-        var indexOfProject = this.projects.indexOf(this.projects.find(d => d.id == project.id));
-        this.projects[indexOfProject] = project;
-        this.dataSource = new MatTableDataSource(this.projects);
-      });
-    });
+      if (project) {
+        project.clientId = project.client.id;
+        this.projectsService.update(project).subscribe(_ => {
+          var indexOfProject = this.projects.indexOf(this.projects.find(d => d.id == project.id));
+          this.projects[indexOfProject] = project;
+          this.dataSource = new MatTableDataSource(this.projects);
+
+          //assign employees
+          this.projectsService.assignEmployeesOnProject(project.id, project.employees.filter(e => !selectedProject.employees.some(employee => employee.id == e.id))).subscribe(_ => { });
+
+          //unassingn employees
+          var unassignEmployees = selectedProject.employees.filter(e => !project.employees.some(employee => employee.id == e.id));
+          unassignEmployees.forEach(e => {
+            this.projectsService.unassignEmployeesOnProject(project.id, e.id).subscribe(_ => { });
+          });
+
+          //assign technologies
+          this.projectsService.assignTechnologiesOnProject(project.id, project.technologies.filter(e => !selectedProject.technologies.some(technology => technology.id == e.id))).subscribe(_ => { });
+
+          //unassingn technologies
+          var unassignTechnologies = selectedProject.technologies.filter(e => !project.technologies.some(technology => technology.id == e.id));
+          unassignTechnologies.forEach(e => {
+            this.projectsService.unassignTechnologiesOnProject(project.id, e.id).subscribe(_ => { });
+          });
+
+          project.technologies = project.technologies.map(e => technologies.find(emp => emp.id == e.id));
+          project.employees = project.employees.map(e => employees.find(tech => tech.id == e.id));
+        })
+      }
+    })
   }
 
   showSaveModal(technologies, employees, employeesWithRecommandation, clients) {

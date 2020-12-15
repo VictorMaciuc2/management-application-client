@@ -28,7 +28,7 @@
     <div class="tech-dropdown" *ngIf="!isTechnologyInputVisible">
       <mat-form-field appearance="fill">
         <mat-label>Technologies</mat-label>
-        <mat-select [(ngModel)]="project.technologies" [ngModelOptions]="{standalone: true}" multiple (selectionChange)="setTechAndEmployeesGroup()">
+        <mat-select [(ngModel)]="project.technologies" [ngModelOptions]="{standalone: true}" multiple (selectionChange)="setTechGroup()">
           <mat-option *ngFor="let technology of technologies" [value]="technology">
             {{technology.name}}
           </mat-option>
