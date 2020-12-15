@@ -6,6 +6,7 @@ export class User {
     id: number = null;
     email: string;
     name: string;
+    jwtToken: string;
     seniorityLevel: SeniorityLevel;
     role: Role;
     departmentId: number;
