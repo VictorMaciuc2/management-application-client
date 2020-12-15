@@ -37,6 +37,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { ExperienceToStringPipe } from './pipes/experience-to-string.pipe';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { FeedbackModal } from './modals/feedback-modal/feedback-modal';
+import { MatRadioModule } from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -54,6 +57,7 @@ import { ExperienceToStringPipe } from './pipes/experience-to-string.pipe';
     EmployeeModal,
     ProjectModal,
     ExperienceToStringPipe
+    FeedbackModal
   ],
   imports: [
     BrowserModule,
@@ -71,7 +75,9 @@ import { ExperienceToStringPipe } from './pipes/experience-to-string.pipe';
     MatMenuModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    MatRadioModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   entryComponents: [
     DeleteConfirmationModal,

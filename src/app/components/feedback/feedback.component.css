@@ -1,0 +1,32 @@
+.mat-table {
+    width: 100%;
+}
+
+.mat-column-name {
+    width: 18%;
+}
+
+.mat-column-email {
+    width: 18%;
+}
+
+.mat-column-role {
+    width: 18%;
+}
+
+.mat-column-seniority-level {
+    width: 18%;
+}
+
+.mat-column-department {
+    width: 18%;
+}
+
+.mat-column-edit {
+    width: 5%;
+}
+  
+.mat-raised-button {
+    background-color: #00529b;
+    color: white;
+}

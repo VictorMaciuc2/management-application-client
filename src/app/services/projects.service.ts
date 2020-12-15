@@ -40,4 +40,8 @@ export class ProjectsService {
   assignEmployeesOnProject(projectId: number, employees: User[]): Observable<any> {
     return this.http.post<Technology>(`${this.baseUrl}/users?projectid=${projectId}`, {users: employees}, this.configService.getHttpOptions());
   }
+
+  getUsersByProject(projectId: number): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/users?projectid=${projectId}`);
+  }
 }
