@@ -52,6 +52,7 @@ export class ProjectModal implements OnInit {
                     technology = tech;
                 }
             })
+            console.log(employee, technology, employeeWithMaximumDays);
             
             var indexOfTechnology = employeeWithMaximumDays.experienceInDays != 0 ? this.techAndEmployeesGroup.findIndex(tech => tech.id == technology.id): this.techAndEmployeesGroup.length - 1;
             if(indexOfTechnology < 0)
@@ -77,7 +78,7 @@ export class ProjectModal implements OnInit {
 
     showAddTechnology() {
         if (this.isTechnologyInputVisible && this.technologyName.length != 0) {
-            this.technologies.push({ id: 0, name: this.technologyName })
+            this.technologies.push({ id: null, name: this.technologyName })
             this.technologyName = '';
         }
         this.isTechnologyInputVisible = !this.isTechnologyInputVisible;
