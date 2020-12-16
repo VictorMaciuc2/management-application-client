@@ -7,6 +7,7 @@ import { FeedbackComponent } from './components/feedback/feedback.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProjectsComponent } from './components/projects/projects.component';
+import {Role} from './enums/role';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
 
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'employees', component: EmployeesComponent, canActivate: [AuthGuard]},
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
   { path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuard]},
-  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] }
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuard], data : { roles: [Role.Employee]} }
 ];
 
 @NgModule({
