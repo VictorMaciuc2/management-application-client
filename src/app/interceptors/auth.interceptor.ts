@@ -22,7 +22,6 @@ export class HttpAuthInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(tap(
             _ => { },
             error => {
-                console.log(error);
                 if (error instanceof HttpErrorResponse) {
                     if (error.status === 401) {
                         this.storageService.clear();

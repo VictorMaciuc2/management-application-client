@@ -53,7 +53,6 @@ export class FeedbackComponent implements OnInit {
   getReportSessions(){
     this.feedbackService.getReportSessionsForUser(this.user).subscribe(
       sessions => {
-        console.log(sessions);
         this.sessions = sessions.filter(session => !session.was_completed);
         if (this.sessions.length > 0){
           this.selectedSession = this.sessions[0];
