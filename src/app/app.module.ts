@@ -40,6 +40,7 @@ import { ExperienceToStringPipe } from './pipes/experience-to-string.pipe';
 import { FeedbackModal } from './modals/feedback-modal/feedback-modal';
 import { MatRadioModule } from "@angular/material/radio";
 import { HttpAuthInterceptor } from './interceptors/auth.interceptor';
+import { ErrorService } from './services/error.service';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { HttpAuthInterceptor } from './interceptors/auth.interceptor';
     StorageService,
     LoginService,
     ProjectsService,
-    ConfigService
+    ConfigService,
+    ErrorService
   ],
   exports: [
     MatFormFieldModule,

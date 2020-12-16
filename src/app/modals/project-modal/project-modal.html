@@ -75,6 +75,6 @@
 </form>
 
 
-<button mat-flat-button [mat-dialog-close]="project" class="save-button" color="primary">
+<button mat-flat-button [disabled]="!(project.startDate<project.deadlineDate)" [mat-dialog-close]="project" class="save-button" color="primary">
   Save
 </button>

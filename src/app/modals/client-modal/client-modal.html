@@ -12,6 +12,6 @@
         </mat-form-field>
     </p>
 </form>
-<button mat-flat-button [mat-dialog-close]="client" color="primary">
+<button mat-flat-button [disabled]="!client.name || !client.description" [mat-dialog-close]="client" color="primary">
     Save
 </button>

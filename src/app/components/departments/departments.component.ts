@@ -5,7 +5,8 @@ import { Department } from 'src/app/models/department';
 import { DepartmentsService } from 'src/app/services/departments.service';
 import { DepartmentModal } from 'src/app/modals/department-modal/department-modal';
 import { MatTableDataSource } from '@angular/material/table';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorService } from 'src/app/services/error.service';
 
 @Component({
   selector: 'app-departments',
@@ -20,7 +21,7 @@ export class DepartmentsComponent implements OnInit {
   public displayedColumns: string[] = ['name', 'description', 'edit', 'delete'];
 
 
-  constructor(private departmentsService: DepartmentsService,
+  constructor(private departmentsService: DepartmentsService, private snackBar : MatSnackBar, private errorService : ErrorService,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -64,6 +65,7 @@ export class DepartmentsComponent implements OnInit {
   }
 
   saveDepartment() {
+
     let dialogRef = this.dialog.open(DepartmentModal, {
       data: {
         department: new Department()
@@ -73,8 +75,11 @@ export class DepartmentsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(department => {
       this.departmentsService.save(department).subscribe(savedDepartment => {
         this.departments.push(savedDepartment);
+        this.snackBar.open("Department added", 'ok',{duration:1500});
         this.dataSource = new MatTableDataSource(this.departments);
-      });
-    });
+      },
+     error => this.snackBar.open(this.errorService.modifyErrorMessage(error,"eroare"),'ok',{duration:1500}));
+    }
+    );
   }
 }
