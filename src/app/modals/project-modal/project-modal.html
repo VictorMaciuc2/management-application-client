@@ -28,7 +28,8 @@
     <div class="tech-dropdown" *ngIf="!isTechnologyInputVisible">
       <mat-form-field appearance="fill">
         <mat-label>Technologies</mat-label>
-        <mat-select [(ngModel)]="project.technologies" [ngModelOptions]="{standalone: true}" multiple (selectionChange)="setTechGroup()">
+        <mat-select [(ngModel)]="project.technologies" [ngModelOptions]="{standalone: true}" multiple
+          (selectionChange)="setTechGroup()">
           <mat-option *ngFor="let technology of technologies" [value]="technology">
             {{technology.name}}
           </mat-option>
@@ -75,6 +76,8 @@
 </form>
 
 
-<button mat-flat-button [disabled]="!(project.startDate<project.deadlineDate)" [mat-dialog-close]="project" class="save-button" color="primary">
+<button mat-flat-button
+  [disabled]="!(project.startDate < project.deadlineDate) || !project.name || !project.description || !project.startDate || !project.deadlineDate || !project.client || project.employees.length == 0 || project.technologies.length == 0"
+  [mat-dialog-close]="project" class="save-button" color="primary">
   Save
 </button>
