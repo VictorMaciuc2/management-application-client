@@ -43,7 +43,6 @@ import { HttpAuthInterceptor } from './interceptors/auth.interceptor';
 import { DateModal } from './modals/date-modal/date-modal';
 import { RoleGuard } from './guards/role.guard';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,7 +88,7 @@ import { RoleGuard } from './guards/role.guard';
     EmployeeModal
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true },
     LoginGuard,
     AuthGuard,
     ClientsService,

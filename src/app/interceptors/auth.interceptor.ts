@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { StorageService } from '../services/local-storage.service';
 
 @Injectable()
@@ -18,21 +19,21 @@ export class HttpAuthInterceptor implements HttpInterceptor {
             }
         });
 
-        var response = next.handle(request);
-   
-        response.subscribe(
+        return next.handle(request).pipe(tap(
             _ => { },
-            (err: any) => {
-                if (err instanceof HttpErrorResponse) {
-                    if (err.status === 401) {
+            error => {
+                console.log(error);
+                if (error instanceof HttpErrorResponse) {
+                    if (error.status === 401) {
                         this.storageService.clear();
                         this.router.navigate(['/login']);
+                    } else if (error.status === 400) {
+                        this.snackBar.open(error.error, '', { duration: 1500, panelClass: ['red-snackbar'] });
                     } else {
-                        this.snackBar.open(err.error, '', { duration: 1500, panelClass: ['red-snackbar'] });
+                        this.snackBar.open(`An error has occurred\n Error status: ${error.statusText}\n${error.error}`, '', { duration: 1500, panelClass: ['red-snackbar'] });
                     }
                 }
-            });
-
-        return response;
+            }
+        ));
     }
 }

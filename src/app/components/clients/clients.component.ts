@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ClientModal } from 'src/app/modals/client-modal/client-modal';
 import { DeleteConfirmationModal } from 'src/app/modals/delete-confirmation/delete-confirmation';
 import { ClientsService } from 'src/app/services/clients.service';
+import { Constants } from 'src/app/utils/constants';
 import { Client } from '../../models/client';
 
 @Component({
@@ -40,7 +41,7 @@ export class ClientsComponent implements OnInit {
         this.clientsService.delete(client.id).subscribe(_ => {
           this.clients = this.clients.filter(d => d.id != client.id);
           this.dataSource = new MatTableDataSource(this.clients);
-          this.snackBar.open("Client was deleted");
+          this.snackBar.open("The client was deleted", '', { duration: Constants.SECONDS_FOR_SNACKBAR });
         })
       }
     });
@@ -59,7 +60,7 @@ export class ClientsComponent implements OnInit {
           var indexOfclient = this.clients.indexOf(this.clients.find(d => d.id == client.id));
           this.clients[indexOfclient] = client;
           this.dataSource = new MatTableDataSource(this.clients);
-          this.snackBar.open("Client was updated");
+          this.snackBar.open("The client was updated", '', { duration: Constants.SECONDS_FOR_SNACKBAR });
         });
       }
     });
@@ -77,7 +78,7 @@ export class ClientsComponent implements OnInit {
         this.clientsService.save(client).subscribe(savedclient => {
           this.clients.push(savedclient);
           this.dataSource = new MatTableDataSource(this.clients);
-          this.snackBar.open("Client was saved");
+          this.snackBar.open("The client was saved", '', { duration: Constants.SECONDS_FOR_SNACKBAR });
         });
       }
     });

@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Role } from 'src/app/enums/Role';
 import { DateModal } from 'src/app/modals/date-modal/date-modal';
 import { ClientsService } from 'src/app/services/clients.service';
 import { EmployeesService } from 'src/app/services/employees.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
 import { TechnologiesService } from 'src/app/services/technologies.service';
+import { Constants } from 'src/app/utils/constants';
 import { DeleteConfirmationModal } from '../../modals/delete-confirmation/delete-confirmation';
 import { DepartmentModal } from '../../modals/department-modal/department-modal';
 import { ProjectModal } from '../../modals/project-modal/project-modal';
@@ -22,14 +25,15 @@ export class ProjectsComponent implements OnInit {
   public dataSource;
   public projects: Project[] = [];
   public filterSearch: string;
-  public displayedColumns: string[] = ['name', 'description', 'startDate', 'endDate', 'deadline', 'edit', 'delete', 'end', 'play'];
+  public displayedColumns: string[] = ['name', 'description', 'startDate', 'endDate', 'deadline', 'end', 'play', 'edit', 'delete'];
 
   constructor(private projectsService: ProjectsService,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private technologiesService: TechnologiesService,
     private employeeService: EmployeesService,
     private clientsService: ClientsService,
-    private feedbackService: FeedbackService) {
+    private feedbackService: FeedbackService,
+    private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -51,6 +55,8 @@ export class ProjectsComponent implements OnInit {
         this.projectsService.delete(project.id).subscribe(_ => {
           this.projects = this.projects.filter(d => d.id != project.id);
           this.dataSource = new MatTableDataSource(this.projects);
+
+          this.snackBar.open("The project was deleted", '', { duration: Constants.SECONDS_FOR_SNACKBAR });
         })
       }
     });
@@ -73,7 +79,7 @@ export class ProjectsComponent implements OnInit {
       data: {
         project: { ...selectedProject },
         technologies: technologies,
-        employees: employees,
+        employees: employees.filter(e => e.role != Role.Hr && e.role != Role.Administrator),
         employeesWithRecommandation: employeesWithRecommandation,
         clients: clients
       }
@@ -107,6 +113,7 @@ export class ProjectsComponent implements OnInit {
 
           project.technologies = project.technologies.map(e => technologies.find(emp => emp.id == e.id));
           project.employees = project.employees.map(e => employees.find(tech => tech.id == e.id));
+          this.snackBar.open("The project was updated", '', { duration: Constants.SECONDS_FOR_SNACKBAR });
         })
       }
     })
@@ -117,7 +124,7 @@ export class ProjectsComponent implements OnInit {
       data: {
         project: new Project(),
         technologies: technologies,
-        employees: employees,
+        employees: employees.filter(e => e.role != Role.Hr && e.role != Role.Administrator),
         employeesWithRecommandation: employeesWithRecommandation,
         clients: clients
       }
@@ -135,6 +142,8 @@ export class ProjectsComponent implements OnInit {
 
           //assign technologies
           this.projectsService.assignTechnologiesOnProject(savedProject.id, project.technologies).subscribe(_ => { });
+
+          this.snackBar.open("The project was saved", '', { duration: Constants.SECONDS_FOR_SNACKBAR });
         })
       }
     })
@@ -164,7 +173,11 @@ export class ProjectsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(project => {
       if (project){
         this.projectsService.update(project).subscribe(
-          _ => this.dataSource = new MatTableDataSource(this.projects)
+          _ => {
+            this.dataSource = new MatTableDataSource(this.projects);
+
+            this.snackBar.open("The project was updated and the feedback session started", '', { duration: Constants.SECONDS_FOR_SNACKBAR }); 
+          }
         );
       }
     })
@@ -184,7 +197,11 @@ export class ProjectsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(project => {
       if (project){
         this.feedbackService.startSession(realProject.id, `${project.startDate}_00:00:00`, `${project.endDate}_00:00:00`).subscribe(
-          _ => this.dataSource = new MatTableDataSource(this.projects)
+          _ => {
+            this.dataSource = new MatTableDataSource(this.projects);
+
+            this.snackBar.open(`Feedback session for the ${project.name} project started`, '', { duration: Constants.SECONDS_FOR_SNACKBAR }); 
+          }
         );
       }
     })
