@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { DateModal } from 'src/app/modals/date-modal/date-modal';
 import { ClientsService } from 'src/app/services/clients.service';
 import { EmployeesService } from 'src/app/services/employees.service';
+import { FeedbackService } from 'src/app/services/feedback.service';
 import { TechnologiesService } from 'src/app/services/technologies.service';
 import { DeleteConfirmationModal } from '../../modals/delete-confirmation/delete-confirmation';
 import { DepartmentModal } from '../../modals/department-modal/department-modal';
@@ -20,13 +22,14 @@ export class ProjectsComponent implements OnInit {
   public dataSource;
   public projects: Project[] = [];
   public filterSearch: string;
-  public displayedColumns: string[] = ['name', 'description', 'startDate', 'endDate', 'deadline', 'edit', 'delete'];
+  public displayedColumns: string[] = ['name', 'description', 'startDate', 'endDate', 'deadline', 'edit', 'delete', 'end', 'play'];
 
   constructor(private projectsService: ProjectsService,
     public dialog: MatDialog,
     private technologiesService: TechnologiesService,
     private employeeService: EmployeesService,
-    private clientsService: ClientsService) {
+    private clientsService: ClientsService,
+    private feedbackService: FeedbackService) {
   }
 
   ngOnInit(): void {
@@ -146,6 +149,44 @@ export class ProjectsComponent implements OnInit {
           })
         })
       })
+    })
+  }
+
+  endProject(project: Project){
+    let dialogRef = this.dialog.open(DateModal, {
+      data: {
+        project: project,
+        showStart: false,
+        showEnd: true,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(project => {
+      if (project){
+        this.projectsService.update(project).subscribe(
+          _ => this.dataSource = new MatTableDataSource(this.projects)
+        );
+      }
+    })
+  }
+
+  startSession(project: Project){
+    let dialogRef = this.dialog.open(DateModal, {
+      data: {
+        project: {startDate: Date, endDate: Date},
+        showStart: true,
+        showEnd: true,
+      }
+    });
+
+    var realProject = project;
+
+    dialogRef.afterClosed().subscribe(project => {
+      if (project){
+        this.feedbackService.startSession(realProject.id, `${project.startDate}_00:00:00`, `${project.endDate}_00:00:00`).subscribe(
+          _ => this.dataSource = new MatTableDataSource(this.projects)
+        );
+      }
     })
   }
 }
