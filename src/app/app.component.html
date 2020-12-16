@@ -1,10 +1,10 @@
 <div *ngIf="isLoggedIn" class="toolbar" role="banner">
   <a class="lnk" href="/home">Home</a>
-  <a class="lnk" href="/clients">Clients</a>
-  <a class="lnk" href="/projects">Projects</a>
-  <a class="lnk" href="/employees">Employees</a>
-  <a class="lnk" href="/departments">Departments</a>
-  <a class="lnk" href="/feedback">Feedback</a>
+  <a *ngIf="loggedUser.role == 1 || loggedUser.role == 2 || loggedUser.role == 0" class="lnk" href="/clients">Clients</a>
+  <a *ngIf="loggedUser.role == 0 ||  loggedUser.role == 2" class="lnk" href="/projects">Projects</a>
+  <a *ngIf="loggedUser.role == 0 ||  loggedUser.role == 1" class="lnk" href="/employees">Employees</a>
+  <a *ngIf="loggedUser.role == 0 ||  loggedUser.role == 1" class="lnk" href="/departments">Departments</a>
+  <a *ngIf="loggedUser.role == 3 ||  loggedUser.role == 2 || loggedUser.role == 0" class="lnk" href="/feedback">Feedback</a>
   <button mat-raised-button (click)="onSignOut()">Sign Out</button>
 </div>
 <div class="content" role="main">
