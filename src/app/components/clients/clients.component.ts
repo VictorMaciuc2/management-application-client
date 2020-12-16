@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ClientModal } from 'src/app/modals/client-modal/client-modal';
 import { DeleteConfirmationModal } from 'src/app/modals/delete-confirmation/delete-confirmation';
 import { ClientsService } from 'src/app/services/clients.service';
-import {Client} from '../../models/client';
+import { Client } from '../../models/client';
 
 @Component({
   selector: 'app-clients',
@@ -17,7 +18,8 @@ export class ClientsComponent implements OnInit {
   public filterSearch: string;
   public displayedColumns: string[] = ['name', 'description', 'edit', 'delete'];
   constructor(public clientsService: ClientsService,
-    public dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.clientsService.getClients().subscribe(clients => {
@@ -34,10 +36,11 @@ export class ClientsComponent implements OnInit {
     let dialogRef = this.dialog.open(DeleteConfirmationModal);
 
     dialogRef.afterClosed().subscribe(response => {
-      if(response) {
+      if (response) {
         this.clientsService.delete(client.id).subscribe(_ => {
           this.clients = this.clients.filter(d => d.id != client.id);
           this.dataSource = new MatTableDataSource(this.clients);
+          this.snackBar.open("Client was deleted");
         })
       }
     });
@@ -46,16 +49,19 @@ export class ClientsComponent implements OnInit {
   editClient(client: Client) {
     let dialogRef = this.dialog.open(ClientModal, {
       data: {
-        client: {...client}
+        client: { ...client }
       }
     });
 
     dialogRef.afterClosed().subscribe(client => {
-      this.clientsService.update(client).subscribe(_ => {
-        var indexOfclient = this.clients.indexOf(this.clients.find(d => d.id == client.id));
-        this.clients[indexOfclient] = client;
-        this.dataSource = new MatTableDataSource(this.clients);
-      });
+      if (client) {
+        this.clientsService.update(client).subscribe(_ => {
+          var indexOfclient = this.clients.indexOf(this.clients.find(d => d.id == client.id));
+          this.clients[indexOfclient] = client;
+          this.dataSource = new MatTableDataSource(this.clients);
+          this.snackBar.open("Client was updated");
+        });
+      }
     });
   }
 
@@ -67,10 +73,13 @@ export class ClientsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(client => {
-      this.clientsService.save(client).subscribe(savedclient => {
-        this.clients.push(savedclient);
-        this.dataSource = new MatTableDataSource(this.clients);
-      });
+      if (client) {
+        this.clientsService.save(client).subscribe(savedclient => {
+          this.clients.push(savedclient);
+          this.dataSource = new MatTableDataSource(this.clients);
+          this.snackBar.open("Client was saved");
+        });
+      }
     });
   }
 
