@@ -10,17 +10,18 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import {Role} from './enums/role';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
+import { RoleGuard } from './guards/role.guard';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component : HomeComponent, canActivate: [AuthGuard]},
-  { path: 'clients', component: ClientsComponent, canActivate:[AuthGuard]},
-  { path: 'departments', component: DepartmentsComponent, canActivate: [AuthGuard]},
-  { path: 'employees', component: EmployeesComponent, canActivate: [AuthGuard]},
-  { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
-  { path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuard]},
-  { path: 'login', component: LoginComponent, canActivate: [LoginGuard], data : { roles: [Role.Employee]} }
+  { path: 'clients', component: ClientsComponent, canActivate:[AuthGuard, RoleGuard]},
+  { path: 'departments', component: DepartmentsComponent, canActivate: [AuthGuard, RoleGuard]},
+  { path: 'employees', component: EmployeesComponent, canActivate: [AuthGuard, RoleGuard]},
+  { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard, RoleGuard]},
+  { path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuard, RoleGuard]},
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] }
 ];
 
 @NgModule({

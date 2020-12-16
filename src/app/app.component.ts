@@ -17,8 +17,8 @@ export class AppComponent {
               private router: Router) {
     router.events.subscribe(val => {
       this.isLoggedIn = this.getLoginStatus();
+      this.loggedUser = storage.getLoggedInUser();
     });
-    this.loggedUser = storage.getLoggedInUser();
   }
 
   getLoginStatus() {

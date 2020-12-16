@@ -41,6 +41,7 @@ import { FeedbackModal } from './modals/feedback-modal/feedback-modal';
 import { MatRadioModule } from "@angular/material/radio";
 import { HttpAuthInterceptor } from './interceptors/auth.interceptor';
 import { DateModal } from './modals/date-modal/date-modal';
+import { RoleGuard } from './guards/role.guard';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { DateModal } from './modals/date-modal/date-modal';
     StorageService,
     LoginService,
     ProjectsService,
-    ConfigService
+    ConfigService,
+    RoleGuard
   ],
   exports: [
     MatFormFieldModule,
