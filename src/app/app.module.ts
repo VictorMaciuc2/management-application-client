@@ -40,7 +40,9 @@ import { ExperienceToStringPipe } from './pipes/experience-to-string.pipe';
 import { FeedbackModal } from './modals/feedback-modal/feedback-modal';
 import { MatRadioModule } from "@angular/material/radio";
 import { HttpAuthInterceptor } from './interceptors/auth.interceptor';
-import { ErrorService } from './services/error.service';
+import { DateModal } from './modals/date-modal/date-modal';
+import { RoleGuard } from './guards/role.guard';
+
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import { ErrorService } from './services/error.service';
     EmployeeModal,
     ProjectModal,
     ExperienceToStringPipe,
-    FeedbackModal
+    FeedbackModal,
+    DateModal
   ],
   imports: [
     BrowserModule,
@@ -96,7 +99,7 @@ import { ErrorService } from './services/error.service';
     LoginService,
     ProjectsService,
     ConfigService,
-    ErrorService
+    RoleGuard
   ],
   exports: [
     MatFormFieldModule,
