@@ -1,0 +1,30 @@
+.mat-table {
+  width: 100%;
+}
+
+.add-client-button {
+  margin-bottom: 15px;
+  background: #00529b;
+  float: right;
+  margin-top: -38px;
+}
+
+.mat-column-name {
+  width: 40%;
+}
+
+.mat-column-description {
+  width: 40%;
+}
+
+.mat-column-edit {
+  width: 20%;
+}
+
+.mat-column-delete {
+  width: 20%;
+}
+
+.input-group {
+  width: 15% !important;
+}

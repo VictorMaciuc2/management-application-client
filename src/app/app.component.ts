@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { TestService } from './services/test.service';
+import {Router} from '@angular/router';
+import {User} from './models/user';
+import {StorageService} from './services/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +10,28 @@ import { TestService } from './services/test.service';
 })
 export class AppComponent {
   title = 'management-application-client';
-  constructor(private service: TestService) { 
-    service.testCall().subscribe(result => {
-      console.log(result);
-    })
+  isLoggedIn: boolean;
+  loggedUser: User;
+
+  constructor(private storage: StorageService,
+              private router: Router) {
+    router.events.subscribe(val => {
+      this.isLoggedIn = this.getLoginStatus();
+      this.loggedUser = storage.getLoggedInUser();
+    });
+  }
+
+  getLoginStatus() {
+    const user = this.storage.getLoggedInUser();
+
+    if (user !== null && user !== undefined){
+      return true;
+    }
+    return false;
+  }
+
+  onSignOut() {
+    this.storage.removeItem('loggedInUser');
+    this.router.navigate(['/login']);
   }
 }

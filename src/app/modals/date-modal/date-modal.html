@@ -1,0 +1,17 @@
+<p *ngIf="showStart">
+    <mat-form-field class="example-full-width" style="width:450px !important">
+    <mat-label>Start Date</mat-label>
+    <input type="date" matInput [(ngModel)]="project.startDate" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+</p>
+
+<p *ngIf="showEnd">
+    <mat-form-field class="example-full-width" style="width:450px !important">
+    <mat-label>End Date</mat-label>
+    <input type="date" matInput [(ngModel)]="project.endDate" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+</p>
+
+<button mat-flat-button [mat-dialog-close]="project" class="save-button" color="primary">
+    Done
+</button>

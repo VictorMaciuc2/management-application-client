@@ -1,0 +1,99 @@
+<div class="input-group">
+  <input type="text" class="form-control" placeholder="Search a project" [(ngModel)]="filterSearch"
+    (input)="onFilterChanged()">
+  <div class="input-group-append">
+    <button class="btn btn-secondary" type="button">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+</div>
+
+<button mat-flat-button class="add-project-button" color="primary" (click)="saveProject()">
+  Add project
+  <span class="material-icons">
+    add_circle
+  </span>
+</button>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let project"> {{project.name}} </td>
+  </ng-container>
+
+  <!-- Description Column -->
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef> Description </th>
+    <td mat-cell *matCellDef="let project"> {{project.description}} </td>
+  </ng-container>
+
+  <!-- StartDate Column -->
+  <ng-container matColumnDef="startDate">
+    <th mat-header-cell *matHeaderCellDef> StartDate </th>
+    <td mat-cell *matCellDef="let project"> {{project.startDate}} </td>
+  </ng-container>
+
+  <!-- EndDate Column -->
+  <ng-container matColumnDef="endDate">
+    <th mat-header-cell *matHeaderCellDef> EndDate </th>
+    <td mat-cell *matCellDef="let project"> {{project.endDate}} </td>
+  </ng-container>
+
+  <!-- Deadline Column -->
+  <ng-container matColumnDef="deadline">
+    <th mat-header-cell *matHeaderCellDef> Deadline </th>
+    <td mat-cell *matCellDef="let project"> {{project.deadlineDate}} </td>
+  </ng-container>
+
+  <!-- End Column -->
+  <ng-container matColumnDef="end">
+    <th mat-header-cell *matHeaderCellDef> End project </th>
+    <td mat-cell *matCellDef="let project">
+      <button mat-button (click)="endProject(project)">
+        <span class="material-icons">
+          check
+        </span>
+      </button>
+    </td>ng
+  </ng-container>
+
+  <!-- Play Column -->
+  <ng-container matColumnDef="play">
+    <th mat-header-cell *matHeaderCellDef> Start report session </th>
+    <td mat-cell *matCellDef="let project">
+      <button mat-button (click)="startSession(project)">
+        <span class="material-icons">
+          play_arrow
+        </span>
+      </button>
+    </td>ng
+  </ng-container>
+
+  <!-- Edit Column -->
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let project">
+      <button mat-button (click)="editProject(project)">
+        <span class="material-icons">
+          edit
+        </span>
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- Delete Column -->
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let project">
+      <button mat-button (click)="deleteProject(project)">
+        <span class="material-icons">
+          delete
+        </span>
+      </button>
+    </td>ng
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

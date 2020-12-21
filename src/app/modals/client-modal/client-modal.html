@@ -1,0 +1,17 @@
+<form class="example-form" *ngIf="client">
+    <p>
+        <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input type="text" matInput [(ngModel)]="client.name" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field class="example-full-width">
+            <mat-label>Description</mat-label>
+            <input type="text" matInput [(ngModel)]="client.description" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+    </p>
+</form>
+<button mat-flat-button [disabled]="!client.name || !client.description" [mat-dialog-close]="client" color="primary">
+    Save
+</button>
