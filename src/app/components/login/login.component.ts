@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { StorageService } from 'src/app/services/local-storage.service';
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService,
               private storageService: StorageService,
-              private router: Router) { 
+              private router: Router,
+              private snackBar: MatSnackBar) { 
   }
 
   ngOnInit(): void {
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
           this.storageService.setLoggedInUser(this.user);
         }
         else{
-          this.showError = true;
+          this.snackBar.open('Invalid credentials', '', { duration: 1500, panelClass: ['red-snackbar'] })
         }
       })
   }

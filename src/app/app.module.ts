@@ -88,7 +88,7 @@ import { RoleGuard } from './guards/role.guard';
     EmployeeModal
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true },
     LoginGuard,
     AuthGuard,
     ClientsService,

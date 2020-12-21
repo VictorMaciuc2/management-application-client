@@ -5,7 +5,8 @@ import { Department } from 'src/app/models/department';
 import { DepartmentsService } from 'src/app/services/departments.service';
 import { DepartmentModal } from 'src/app/modals/department-modal/department-modal';
 import { MatTableDataSource } from '@angular/material/table';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Constants } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-departments',
@@ -20,7 +21,7 @@ export class DepartmentsComponent implements OnInit {
   public displayedColumns: string[] = ['name', 'description', 'edit', 'delete'];
 
 
-  constructor(private departmentsService: DepartmentsService,
+  constructor(private departmentsService: DepartmentsService, private snackBar : MatSnackBar,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -42,6 +43,7 @@ export class DepartmentsComponent implements OnInit {
         this.departmentsService.delete(department.id).subscribe(_ => {
           this.departments = this.departments.filter(d => d.id != department.id);
           this.dataSource = new MatTableDataSource(this.departments);
+          this.snackBar.open("The department was deleted", '', { duration: Constants.SECONDS_FOR_SNACKBAR });
         })
       }
     });
@@ -55,15 +57,19 @@ export class DepartmentsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(department => {
-      this.departmentsService.update(department).subscribe(_ => {
-        var indexOfDepartment = this.departments.indexOf(this.departments.find(d => d.id == department.id));
-        this.departments[indexOfDepartment] = department;
-        this.dataSource = new MatTableDataSource(this.departments);
-      });
+      if(department) {
+        this.departmentsService.update(department).subscribe(_ => {
+          var indexOfDepartment = this.departments.indexOf(this.departments.find(d => d.id == department.id));
+          this.departments[indexOfDepartment] = department;
+          this.dataSource = new MatTableDataSource(this.departments);
+          this.snackBar.open("The department was updated", '', { duration: Constants.SECONDS_FOR_SNACKBAR });
+        });
+      }
     });
   }
 
   saveDepartment() {
+
     let dialogRef = this.dialog.open(DepartmentModal, {
       data: {
         department: new Department()
@@ -74,7 +80,9 @@ export class DepartmentsComponent implements OnInit {
       this.departmentsService.save(department).subscribe(savedDepartment => {
         this.departments.push(savedDepartment);
         this.dataSource = new MatTableDataSource(this.departments);
+        this.snackBar.open("The department was updated", '', { duration: Constants.SECONDS_FOR_SNACKBAR });
       });
-    });
+    }
+    );
   }
 }

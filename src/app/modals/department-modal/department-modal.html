@@ -12,6 +12,6 @@
         </mat-form-field>
     </p>
 </form>
-<button mat-flat-button [mat-dialog-close]="department" color="primary">
+<button mat-flat-button [disabled]="!department.name || !department.description" [mat-dialog-close]="department" color="primary">
     Save
 </button>

@@ -14,7 +14,7 @@ export class RoleGuard implements CanActivate {
         var user = this.storage.getLoggedInUser();
         var notAllowedHrPaths = ['/projects', '/feedback'];
         var notAllowedScrumMaterPaths = ['/employees', '/departments'];
-        var notAllowedEmployeePaths = ['/clients', '/feedback'];
+        var notAllowedEmployeePaths = ['/clients', '/projects', '/employees', '/departments'];
         var link = location.pathname;
 
         if(user.role == Role.Hr && notAllowedHrPaths.includes(link)) {

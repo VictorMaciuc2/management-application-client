@@ -1,54 +1,60 @@
-<mat-select [(ngModel)]="selectedSession" [ngModelOptions]="{standalone: true}" (selectionChange)="getTeammates()">
-    <mat-option *ngFor="let session of sessions" [value]="session">
-        {{session.project.name}}: {{session.start_date}} - {{session.end_date}}
-    </mat-option>
-</mat-select>
-<br /> <br /> <br />
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let employee"> {{employee.name}} </td>
-    </ng-container>
+<h3 *ngIf="sessions && sessions.length == 0">
+    There is no feedback to complete.
+</h3>
+<div *ngIf="sessions && sessions.length != 0">
+    <mat-select [(ngModel)]="selectedSession" [ngModelOptions]="{standalone: true}" (selectionChange)="getTeammates()">
+        <mat-option *ngFor="let session of sessions" [value]="session">
+            {{session.project.name}}: {{session.start_date | date: 'dd/MM/yyyy'}} - {{session.end_date | date:
+            'dd/MM/yyyy'}}
+        </mat-option>
+    </mat-select>
+    <br /> <br /> <br />
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let employee"> {{employee.name}} </td>
+        </ng-container>
 
-    <!-- Email Column -->
-    <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let employee"> {{employee.email}} </td>
-    </ng-container>
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let employee"> {{employee.email}} </td>
+        </ng-container>
 
-    <!-- Role Column -->
-    <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef> Role </th>
-        <td mat-cell *matCellDef="let employee"> {{role[employee.role]}} </td>
-    </ng-container>
+        <!-- Role Column -->
+        <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef> Role </th>
+            <td mat-cell *matCellDef="let employee"> {{role[employee.role]}} </td>
+        </ng-container>
 
-    <!-- Seniority Column -->
-    <ng-container matColumnDef="seniorityLevel">
-        <th mat-header-cell *matHeaderCellDef> Seniority Level </th>
-        <td mat-cell *matCellDef="let employee"> {{seniorityLevel[employee.seniorityLevel]}} </td>
-    </ng-container>
+        <!-- Seniority Column -->
+        <ng-container matColumnDef="seniorityLevel">
+            <th mat-header-cell *matHeaderCellDef> Seniority Level </th>
+            <td mat-cell *matCellDef="let employee"> {{seniorityLevel[employee.seniorityLevel]}} </td>
+        </ng-container>
 
-    <!-- Department Column -->
-    <ng-container matColumnDef="department">
-        <th mat-header-cell *matHeaderCellDef> Department </th>
-        <td mat-cell *matCellDef="let employee"> {{employee.department.name}} </td>
-    </ng-container>
+        <!-- Department Column -->
+        <ng-container matColumnDef="department">
+            <th mat-header-cell *matHeaderCellDef> Department </th>
+            <td mat-cell *matCellDef="let employee"> {{employee.department.name}} </td>
+        </ng-container>
 
-    <!-- Edit Column -->
-    <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef> </th>
-        <td mat-cell *matCellDef="let employee">
-            <button mat-button (click)="editEmployee(employee)">
-                <span class="material-icons">
-                    edit
-                </span>
-            </button>
-        </td>
-    </ng-container>
+        <!-- Edit Column -->
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let employee">
+                <button mat-button (click)="editEmployee(employee)">
+                    <span class="material-icons">
+                        edit
+                    </span>
+                </button>
+            </td>
+        </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-<br/>
-<button mat-raised-button *ngIf="teammates.length" (click)="onSubmit()">Submit feedback</button>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <br />
+    <button mat-raised-button *ngIf="teammates.length" (click)="onSubmit()">Submit feedback</button>
+</div>
