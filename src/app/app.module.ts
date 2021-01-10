@@ -42,6 +42,7 @@ import { MatRadioModule } from "@angular/material/radio";
 import { HttpAuthInterceptor } from './interceptors/auth.interceptor';
 import { DateModal } from './modals/date-modal/date-modal';
 import { RoleGuard } from './guards/role.guard';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { RoleGuard } from './guards/role.guard';
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
-    MatRadioModule
+    MatRadioModule,
+    NgApexchartsModule,
   ],
   entryComponents: [
     DeleteConfirmationModal,

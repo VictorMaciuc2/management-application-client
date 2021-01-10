@@ -41,4 +41,8 @@ export class FeedbackService {
     return this.http.post(this.baseUrl + "/sessions", 
                 {'project_id': project_id, 'start_date': start_date, 'end_date': end_date}, this.configService.getHttpOptions());
   }
+
+  getUserGrowth() {
+    return this.http.get<any[]>(this.baseUrl + "/skills" + "/growth");
+  }
 }
