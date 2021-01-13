@@ -1,0 +1,21 @@
+<div *ngIf="technologies">
+    <form class="example-form">
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Technology</mat-label>
+                <mat-select [(ngModel)]="selectedTechnology" [ngModelOptions]="{standalone: true}" (selectionChange)="renderChart()">
+                    <mat-option *ngFor="let technology of technologies" [value]="technology">
+                        {{technology.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </p>
+    </form>
+    <div class="chart-title">
+        Empoyees based on technology experience
+    </div>
+    <div id="chart">
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [dataLabels]="chartOptions.dataLabels"
+            [plotOptions]="chartOptions.plotOptions" [xaxis]="chartOptions.xaxis" [title]="chartOptions.title"></apx-chart>
+    </div>
+</div>

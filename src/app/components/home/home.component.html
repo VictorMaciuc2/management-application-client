@@ -1,20 +1,3 @@
-<div>
-    <mat-select [(ngModel)]="selectedDataRow" [ngModelOptions]="{standalone: true}" (selectionChange)="createChart()">
-        <mat-option *ngFor="let dataRow of dataRows" [value]="dataRow">
-            {{dataRow.user.name}} - {{dataRow.user.email}}
-        </mat-option>
-    </mat-select>
-
-    <apx-chart *ngIf="selectedDataRow"
-    [series]="chartOptions.series"
-    [chart]="chartOptions.chart"
-    [xaxis]="chartOptions.xaxis"
-    [stroke]="chartOptions.stroke"
-    [dataLabels]="chartOptions.dataLabels"
-    [yaxis]="chartOptions.yaxis"
-    [labels]="chartOptions.labels"
-    [legend]="chartOptions.legend"
-    [title]="chartOptions.title"
-    [subtitle]="chartOptions.subtitle"
-    ></apx-chart>
-</div>
+<app-technology-experience-chart *ngIf="technologies" [technologies]="technologies"></app-technology-experience-chart>
+<br><br>
+<app-user-growth *ngIf="dataRowsUserGrowth" [dataRows]="dataRowsUserGrowth"></app-user-growth>
