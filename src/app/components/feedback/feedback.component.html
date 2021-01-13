@@ -1,28 +1,5 @@
 <h3 *ngIf="sessions && sessions.length == 0">
-    <div *ngIf="user.role === 3; else growth">
         There is no feedback to complete.
-    </div>
-
-    <ng-template #growth>
-        <mat-select [(ngModel)]="selectedDataRow" [ngModelOptions]="{standalone: true}" (selectionChange)="createChart()">
-            <mat-option *ngFor="let dataRow of dataRows" [value]="dataRow">
-                {{dataRow.user.name}} - {{dataRow.user.email}}
-            </mat-option>
-        </mat-select>
-
-        <apx-chart *ngIf="selectedDataRow"
-        [series]="chartOptions.series"
-        [chart]="chartOptions.chart"
-        [xaxis]="chartOptions.xaxis"
-        [stroke]="chartOptions.stroke"
-        [dataLabels]="chartOptions.dataLabels"
-        [yaxis]="chartOptions.yaxis"
-        [labels]="chartOptions.labels"
-        [legend]="chartOptions.legend"
-        [title]="chartOptions.title"
-        [subtitle]="chartOptions.subtitle"
-      ></apx-chart>
-    </ng-template>
 </h3>
 <div *ngIf="sessions && sessions.length != 0">
     <mat-select [(ngModel)]="selectedSession" [ngModelOptions]="{standalone: true}" (selectionChange)="getTeammates()">
