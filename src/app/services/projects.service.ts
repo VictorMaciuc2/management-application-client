@@ -56,4 +56,8 @@ export class ProjectsService {
   getTechnologiesByProject(projectId: number): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}/technologies?projectid=${projectId}`);
   }
+
+  getProgressOfProjects() {
+    return this.http.get<any>(`${this.baseUrl}/progress`);
+  }
 }
