@@ -45,6 +45,7 @@ import { RoleGuard } from './guards/role.guard';
 import { TechnologyExperienceChartComponent } from './charts/technology-experience-chart/technology-experience-chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { UserGrowthComponent } from './charts/user-growth/user-growth/user-growth.component';
+import { ProgressOfProjectsComponent } from './charts/progress-of-projects/progress-of-projects.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { UserGrowthComponent } from './charts/user-growth/user-growth/user-growt
     FeedbackModal,
     DateModal,
     TechnologyExperienceChartComponent,
-    UserGrowthComponent
+    UserGrowthComponent,
+    ProgressOfProjectsComponent
   ],
   imports: [
     BrowserModule,

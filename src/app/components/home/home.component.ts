@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Technology } from 'src/app/models/technology';
 import { EmployeesService } from 'src/app/services/employees.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
+import { ProjectsService } from 'src/app/services/projects.service';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +12,11 @@ import { FeedbackService } from 'src/app/services/feedback.service';
 export class HomeComponent implements OnInit {
   public technologies: Technology[];
   public dataRowsUserGrowth: any[];
+  public progressOfProjects: any[];
   
   constructor(private employeeService: EmployeesService,
-              private feedbackService: FeedbackService) {}
+              private feedbackService: FeedbackService,
+              private projectsService: ProjectsService) {}
 
   ngOnInit(): void {
     this.employeeService.getEmployeesByRecommandation().subscribe(result => {
@@ -25,5 +28,9 @@ export class HomeComponent implements OnInit {
         this.dataRowsUserGrowth = dataRow.filter(dataRow => dataRow.user.role === 3);
       }
     );
+
+    this.projectsService.getProgressOfProjects().subscribe(progressOfProjects => {
+      this.progressOfProjects = progressOfProjects.sort((a,b) => { return b.procent - a.procent });
+    });
   }
 }
