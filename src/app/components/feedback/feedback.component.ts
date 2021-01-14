@@ -1,8 +1,6 @@
-import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { report } from 'process';
 import { Role } from 'src/app/enums/Role';
 import { SeniorityLevel } from 'src/app/enums/SeniorityLevel';
 import { FeedbackModal } from 'src/app/modals/feedback-modal/feedback-modal';
@@ -33,7 +31,8 @@ export class FeedbackComponent implements OnInit {
   constructor(private storageService: StorageService,
               private feedbackService: FeedbackService,
               private projectService: ProjectsService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog) {
+               }
 
   ngOnInit(): void {
     this.user = this.storageService.getLoggedInUser();

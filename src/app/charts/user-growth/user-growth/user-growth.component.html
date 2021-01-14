@@ -1,0 +1,31 @@
+<div>
+    <form class="example-form">
+        <p>
+            <mat-form-field appearance="fill">
+                <mat-label>Employee</mat-label>
+                <mat-select [(ngModel)]="selectedDataRow" [ngModelOptions]="{standalone: true}" (selectionChange)="createChart()">
+                    <mat-option *ngFor="let dataRow of dataRows" [value]="dataRow">
+                        {{dataRow.user.name}} - {{dataRow.user.email}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </p>
+    </form>
+
+    <div class="chart-title">
+        Skills growth
+    </div>
+
+    <apx-chart *ngIf="selectedDataRow"
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [xaxis]="chartOptions.xaxis"
+    [stroke]="chartOptions.stroke"
+    [dataLabels]="chartOptions.dataLabels"
+    [yaxis]="chartOptions.yaxis"
+    [labels]="chartOptions.labels"
+    [legend]="chartOptions.legend"
+    [title]="chartOptions.title"
+    [subtitle]="chartOptions.subtitle"
+    ></apx-chart>
+</div>

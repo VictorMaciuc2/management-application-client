@@ -1,5 +1,5 @@
 <h3 *ngIf="sessions && sessions.length == 0">
-    There is no feedback to complete.
+        There is no feedback to complete.
 </h3>
 <div *ngIf="sessions && sessions.length != 0">
     <mat-select [(ngModel)]="selectedSession" [ngModelOptions]="{standalone: true}" (selectionChange)="getTeammates()">

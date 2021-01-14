@@ -44,6 +44,7 @@ import { DateModal } from './modals/date-modal/date-modal';
 import { RoleGuard } from './guards/role.guard';
 import { TechnologyExperienceChartComponent } from './charts/technology-experience-chart/technology-experience-chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { UserGrowthComponent } from './charts/user-growth/user-growth/user-growth.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     ExperienceToStringPipe,
     FeedbackModal,
     DateModal,
-    TechnologyExperienceChartComponent
+    TechnologyExperienceChartComponent,
+    UserGrowthComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +85,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     MatSelectModule,
     MatOptionModule,
     MatRadioModule,
-    NgApexchartsModule
+    NgApexchartsModule,
   ],
   entryComponents: [
     DeleteConfirmationModal,
