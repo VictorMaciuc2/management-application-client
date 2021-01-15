@@ -46,6 +46,8 @@ import { TechnologyExperienceChartComponent } from './charts/technology-experien
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { UserGrowthComponent } from './charts/user-growth/user-growth/user-growth.component';
 import { ProgressOfProjectsComponent } from './charts/progress-of-projects/progress-of-projects.component';
+import { AssignedProjectsChartComponent } from './charts/assigned-projects-chart/assigned-projects-chart.component';
+import { MostUsedTechnologiesComponent } from './charts/most-used-technologies/most-used-technologies.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import { ProgressOfProjectsComponent } from './charts/progress-of-projects/progr
     DateModal,
     TechnologyExperienceChartComponent,
     UserGrowthComponent,
-    ProgressOfProjectsComponent
+    ProgressOfProjectsComponent,
+    AssignedProjectsChartComponent,
+    MostUsedTechnologiesComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit {
   public technologies: Technology[];
   public dataRowsUserGrowth: any[];
   public progressOfProjects: any[];
+  public usersWithProjects: any[];
+  public mostUsedTech: any[];
   
   constructor(private employeeService: EmployeesService,
               private feedbackService: FeedbackService,
@@ -32,5 +34,15 @@ export class HomeComponent implements OnInit {
     this.projectsService.getProgressOfProjects().subscribe(progressOfProjects => {
       this.progressOfProjects = progressOfProjects.sort((a,b) => { return b.procent - a.procent });
     });
+
+    this.projectsService.getUsersWithAssignedProjects().subscribe(result => {
+      //console.log(result);
+      this.usersWithProjects = result.sort((a,b) => { return b.count - a.count });
+    })
+
+    this.projectsService.getMostUsedTech().subscribe(result => {
+      console.log(result);
+      this.mostUsedTech = result;
+    })
   }
 }
