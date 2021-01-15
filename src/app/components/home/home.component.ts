@@ -36,13 +36,11 @@ export class HomeComponent implements OnInit {
     });
 
     this.projectsService.getUsersWithAssignedProjects().subscribe(result => {
-      //console.log(result);
       this.usersWithProjects = result.sort((a,b) => { return b.count - a.count });
     })
 
     this.projectsService.getMostUsedTech().subscribe(result => {
-      console.log(result);
-      this.mostUsedTech = result;
+      this.mostUsedTech = Object.values(result);
     })
   }
 }
