@@ -46,7 +46,7 @@ import { TechnologyExperienceChartComponent } from './charts/technology-experien
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { UserGrowthComponent } from './charts/user-growth/user-growth/user-growth.component';
 import { ProgressOfProjectsComponent } from './charts/progress-of-projects/progress-of-projects.component';
-
+import {SkillRatingChartComponent} from "./charts/skill-rating-chart/skill-rating-chart.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +67,8 @@ import { ProgressOfProjectsComponent } from './charts/progress-of-projects/progr
     DateModal,
     TechnologyExperienceChartComponent,
     UserGrowthComponent,
-    ProgressOfProjectsComponent
+    ProgressOfProjectsComponent,
+    SkillRatingChartComponent
   ],
   imports: [
     BrowserModule,

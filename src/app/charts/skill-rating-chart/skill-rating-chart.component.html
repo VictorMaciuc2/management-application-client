@@ -1,0 +1,21 @@
+<div *ngIf="skillRatings">
+  <form class="example-form">
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Skill</mat-label>
+        <mat-select [(ngModel)]="selectedSkill" [ngModelOptions]="{standalone: true}" (selectionChange)="renderChart()">
+          <mat-option *ngFor="let skill of skillRatings" [value]="skill">
+            {{skill.skill.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+  </form>
+  <div class="chart-title">
+    Employees based on skill rating
+  </div>
+  <div id="chart">
+    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [dataLabels]="chartOptions.dataLabels"
+               [plotOptions]="chartOptions.plotOptions" [xaxis]="chartOptions.xaxis" [title]="chartOptions.title"></apx-chart>
+  </div>
+</div>

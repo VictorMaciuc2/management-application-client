@@ -38,11 +38,16 @@ export class FeedbackService {
   }
 
   startSession(project_id: number, start_date: string, end_date: string){
-    return this.http.post(this.baseUrl + "/sessions", 
+    return this.http.post(this.baseUrl + "/sessions",
                 {'project_id': project_id, 'start_date': start_date, 'end_date': end_date}, this.configService.getHttpOptions());
   }
 
   getUserGrowth() {
     return this.http.get<any[]>(this.baseUrl + "/skills" + "/growth");
+  }
+
+  getUsersOnSkillRating(): Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/skills/users`);
+
   }
 }

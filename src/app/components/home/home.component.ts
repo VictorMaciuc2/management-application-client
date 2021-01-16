@@ -3,6 +3,7 @@ import { Technology } from 'src/app/models/technology';
 import { EmployeesService } from 'src/app/services/employees.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
 import { ProjectsService } from 'src/app/services/projects.service';
+import {Skill} from "../../models/skill";
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,8 @@ export class HomeComponent implements OnInit {
   public technologies: Technology[];
   public dataRowsUserGrowth: any[];
   public progressOfProjects: any[];
-  
+  public skillRatings: any[];
+
   constructor(private employeeService: EmployeesService,
               private feedbackService: FeedbackService,
               private projectsService: ProjectsService) {}
@@ -22,7 +24,7 @@ export class HomeComponent implements OnInit {
     this.employeeService.getEmployeesByRecommandation().subscribe(result => {
       this.technologies = result;
     })
-    
+
     this.feedbackService.getUserGrowth().subscribe(
       dataRow => {
         this.dataRowsUserGrowth = dataRow.filter(dataRow => dataRow.user.role === 3);
@@ -31,6 +33,11 @@ export class HomeComponent implements OnInit {
 
     this.projectsService.getProgressOfProjects().subscribe(progressOfProjects => {
       this.progressOfProjects = progressOfProjects.sort((a,b) => { return b.procent - a.procent });
+    });
+
+    this.feedbackService.getUsersOnSkillRating().subscribe(result =>{
+      // console.log(result);
+      this.skillRatings = result;
     });
   }
 }

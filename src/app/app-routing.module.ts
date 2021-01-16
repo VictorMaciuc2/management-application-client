@@ -7,7 +7,7 @@ import { FeedbackComponent } from './components/feedback/feedback.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProjectsComponent } from './components/projects/projects.component';
-import {Role} from './enums/role';
+// import {Role} from './enums/role';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
 import { RoleGuard } from './guards/role.guard';
