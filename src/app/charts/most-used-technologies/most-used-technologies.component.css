@@ -13,3 +13,9 @@
     padding-top: 24px;
     font-size: 18px;
 }
+#chart {
+    max-width: 380px;
+    margin: 35px auto;
+    padding: 0;
+  }
+  

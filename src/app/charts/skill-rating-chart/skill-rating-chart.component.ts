@@ -42,7 +42,6 @@ export class SkillRatingChartComponent implements OnInit {
     var employees=this.selectedSkill.users;
     var ratings=employees.map(e => e.rating);
     var names=employees.map(e => e.user.name);
-    console.log(names);
     this.chartOptions = {
       series:  [{
         name: "skill rating",

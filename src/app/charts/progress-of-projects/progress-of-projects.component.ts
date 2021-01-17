@@ -29,7 +29,7 @@ export class ProgressOfProjectsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var total = this.progressOfProjects.map(p => p.procent).reduce((a,b) => a + b, 0) / (this.progressOfProjects.length - 1);
+    var total = this.progressOfProjects.map(p => p.procent).reduce((a,b) => a + b, 0) / (this.progressOfProjects.length );
     this.chartOptions = {
       series: this.progressOfProjects.map(p => p.procent.toFixed(2)),
       chart: {
@@ -47,7 +47,7 @@ export class ProgressOfProjectsComponent implements OnInit {
             },
             total: {
               show: true,
-              label: "Total",
+              label: "Average",
               formatter: function (w) {
                 return total.toFixed(2) + '%';
               }
