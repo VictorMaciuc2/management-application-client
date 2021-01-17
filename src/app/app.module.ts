@@ -47,6 +47,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { UserGrowthComponent } from './charts/user-growth/user-growth/user-growth.component';
 import { ProgressOfProjectsComponent } from './charts/progress-of-projects/progress-of-projects.component';
 import {SkillRatingChartComponent} from "./charts/skill-rating-chart/skill-rating-chart.component";
+import { AssignedProjectsChartComponent } from './charts/assigned-projects-chart/assigned-projects-chart.component';
+import { MostUsedTechnologiesComponent } from './charts/most-used-technologies/most-used-technologies.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +72,8 @@ import {SkillRatingChartComponent} from "./charts/skill-rating-chart/skill-ratin
     UserGrowthComponent,
     ProgressOfProjectsComponent,
     SkillRatingChartComponent
+    AssignedProjectsChartComponent,
+    MostUsedTechnologiesComponent
   ],
   imports: [
     BrowserModule,

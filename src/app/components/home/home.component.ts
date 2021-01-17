@@ -15,7 +15,8 @@ export class HomeComponent implements OnInit {
   public dataRowsUserGrowth: any[];
   public progressOfProjects: any[];
   public skillRatings: any[];
-
+  public usersWithProjects: any[];
+  public mostUsedTech: any[];
   constructor(private employeeService: EmployeesService,
               private feedbackService: FeedbackService,
               private projectsService: ProjectsService) {}
@@ -34,10 +35,16 @@ export class HomeComponent implements OnInit {
     this.projectsService.getProgressOfProjects().subscribe(progressOfProjects => {
       this.progressOfProjects = progressOfProjects.sort((a,b) => { return b.procent - a.procent });
     });
-
     this.feedbackService.getUsersOnSkillRating().subscribe(result =>{
-      // console.log(result);
       this.skillRatings = result;
     });
+
+    this.projectsService.getUsersWithAssignedProjects().subscribe(result => {
+      this.usersWithProjects = result.sort((a,b) => { return b.count - a.count });
+    })
+
+    this.projectsService.getMostUsedTech().subscribe(result => {
+      this.mostUsedTech = Object.values(result);
+    })
   }
 }

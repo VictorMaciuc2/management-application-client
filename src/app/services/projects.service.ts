@@ -60,4 +60,12 @@ export class ProjectsService {
   getProgressOfProjects() {
     return this.http.get<any>(`${this.baseUrl}/progress`);
   }
+
+  getUsersWithAssignedProjects() {
+    return this.http.get<any>(`${this.baseUrl}/userslist`)
+  }
+
+  getMostUsedTech() {
+    return this.http.get<any>(`${this.baseUrl}/mosttechs`)
+  }
 }
