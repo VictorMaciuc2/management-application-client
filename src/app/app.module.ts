@@ -71,7 +71,7 @@ import { MostUsedTechnologiesComponent } from './charts/most-used-technologies/m
     TechnologyExperienceChartComponent,
     UserGrowthComponent,
     ProgressOfProjectsComponent,
-    SkillRatingChartComponent
+    SkillRatingChartComponent,
     AssignedProjectsChartComponent,
     MostUsedTechnologiesComponent
   ],
